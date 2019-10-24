@@ -1,5 +1,9 @@
-'use strict'
 const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+const isDev = process.env.NODE_ENV !== 'production'
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -16,7 +20,7 @@ module.exports = {
     overlay: {
       warnings: false,
       errors: true
-    },
+    }
     // proxy: {
     //   '/v0.1': {
     //     target: '',
@@ -27,16 +31,57 @@ module.exports = {
     //   }
     // }
   },
-  configureWebpack: {
-    resolve: {
-      alias: {
-        '@': resolve('src')
+  css: {
+    loaderOptions: {
+      // scss全局变量
+      scss: {
+        data: `@import "~@/styles/variables.scss";`
       }
     }
+  },
+  configureWebpack: config => {
+    let plugins = []
+    if (isDev) {
+
+    } else {
+      plugins = [
+        // 去除console
+        new UglifyjsWebpackPlugin({
+          uglifyOptions: {
+            warnings: false,
+            compress: {
+              drop_debugger: true,
+              drop_console: true,
+              pure_funcs: ['console.log']
+            }
+          },
+          sourceMap: false,
+          parallel: true
+        }),
+        // gZip
+        new CompressionWebpackPlugin({
+          filename: '[path].gz[query]',
+          algorithm: 'gzip',
+          test: /\.(js|css|json|html|ico|svg)(\?.*)?$/i,
+          threshold: 10240,
+          minRatio: 0.8
+        }),
+        // 打包分析
+        // new BundleAnalyzerPlugin()
+      ]
+    }
+    config.plugins = [
+      ...config.plugins,
+      ...plugins
+    ]
   },
   chainWebpack(config) {
     config.plugins.delete('preload')
     config.plugins.delete('prefetch')
+
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('views', resolve('srv/views'))
 
     // svg-icon
     config.module
@@ -56,19 +101,20 @@ module.exports = {
       .end()
 
     // 清空HTML标签空格
-    config.module
-      .rule('vue')
-      .use('vue-loader')
-      .loader('vue-loader')
-      .tap(options => {
-        options.compilerOptions.preserveWhitespace = true
-        return options
-      })
-      .end()
+    // config.module
+    //   .rule('vue')
+    //   .use('vue-loader')
+    //   .loader('vue-loader')
+    //   .tap(options => {
+    //     options.compilerOptions.preserveWhitespace = true
+    //     return options
+    //   })
+    //   .end()
 
     // 开发环境源码映射
     config
-      .when(process.env.NODE_ENV === 'development',
+      .when(
+        process.env.NODE_ENV === 'development',
         config => config.devtool('cheap-source-map')
       )
 

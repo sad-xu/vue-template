@@ -28,22 +28,8 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      // only show routes with meta.title
       let matched = this.$route.matched.filter(item => item.meta && item.meta.title)
-      const first = matched[0]
-
-      if (!this.isDashboard(first)) {
-        matched = [{ path: '/dashboard', meta: { title: 'Dashboard' } }].concat(matched)
-      }
-
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
-    },
-    isDashboard(route) {
-      const name = route && route.name
-      if (!name) {
-        return false
-      }
-      return name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
     },
     pathCompile(path) {
       const { params } = this.$route
@@ -68,10 +54,28 @@ export default {
   font-size: 14px;
   line-height: 50px;
   margin-left: 8px;
-
   .no-redirect {
     color: #97a8be;
     cursor: text;
   }
+}
+
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s;
+}
+
+.breadcrumb-enter,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.breadcrumb-move {
+  transition: all .5s;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
 }
 </style>

@@ -1,16 +1,20 @@
-#app {
+$subMenuActiveText:#555;
+$menuHover:#e6e6e6;
+$subMenuBg:#f5f5f5;
+$subMenuHover:#e6e6e6;
 
+
+#app {
   .main-container {
     min-height: 100%;
     transition: margin-left .28s;
     margin-left: $sideBarWidth;
     position: relative;
   }
-
   .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth !important;
-    background-color: $menuBg;
+    background-color: #f5f5f5; // $menuBg;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -85,7 +89,6 @@
       }
     }
   }
-
   .hideSidebar {
     .sidebar-container {
       width: 54px !important;
@@ -138,38 +141,10 @@
       }
     }
   }
-
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
 
-  // mobile responsive
-  .mobile {
-    .main-container {
-      margin-left: 0px;
-    }
-
-    .sidebar-container {
-      transition: transform .28s;
-      width: $sideBarWidth !important;
-    }
-
-    &.hideSidebar {
-      .sidebar-container {
-        pointer-events: none;
-        transition-duration: 0.3s;
-        transform: translate3d(-$sideBarWidth, 0, 0);
-      }
-    }
-  }
-
-  .withoutAnimation {
-
-    .main-container,
-    .sidebar-container {
-      transition: none;
-    }
-  }
 }
 
 // when menu collapsed
@@ -179,28 +154,21 @@
       margin-right: 16px;
     }
   }
-
   .nest-menu .el-submenu>.el-submenu__title,
   .el-menu-item {
     &:hover {
-      // you can use $subMenuHover
       background-color: $menuHover !important;
     }
   }
-
-  // the scroll bar appears when the subMenu is too long
   >.el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;
-
     &::-webkit-scrollbar-track-piece {
       background: #d3dce6;
     }
-
     &::-webkit-scrollbar {
       width: 6px;
     }
-
     &::-webkit-scrollbar-thumb {
       background: #99a9bf;
       border-radius: 20px;

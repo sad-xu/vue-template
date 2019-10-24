@@ -1,6 +1,17 @@
 import Vue from 'vue'
 
-import 'normalize.css/normalize.css' // A modern alternative to CSS resets
+import 'normalize.css/normalize.css'
+import 'element-ui/lib/theme-chalk/index.css'
+import '@/styles/index.scss'
+
+import '@/icons'
+import '@/permission'
+
+import App from './App'
+import store from './store'
+import router from './router'
+
+import SvgIcon from './components/SvgIcon.vue'
 
 import {
   Dialog,
@@ -14,10 +25,10 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Scrollbar,
-  MessageBox,
-  Message,
-  Notification
+  Scrollbar
+  // MessageBox,
+  // Message,
+  // Notification
   // MenuItemGroup,
   // Pagination,
   // Autocomplete,
@@ -82,16 +93,8 @@ import {
   // CascaderPanel,
   // Loading
 } from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 
-import '@/styles/index.scss' // global css
-
-import App from './App'
-import store from './store'
-import router from './router'
-
-import '@/icons' // icon
-import '@/permission' // permission control
+Vue.component('svg-icon', SvgIcon)
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 2000 }
 Vue.use(Dialog)
@@ -108,12 +111,12 @@ Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 
 // Vue.prototype.$loading = Loading.service
-Vue.prototype.$msgbox = MessageBox
+// Vue.prototype.$msgbox = MessageBox
 // Vue.prototype.$alert = MessageBox.alert
 // Vue.prototype.$confirm = MessageBox.confirm
 // Vue.prototype.$prompt = MessageBox.prompt
-Vue.prototype.$notify = Notification
-Vue.prototype.$message = Message
+// Vue.prototype.$notify = Notification
+// Vue.prototype.$message = Message
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 Vue.config.devtools = IS_DEV
