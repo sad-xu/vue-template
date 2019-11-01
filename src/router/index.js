@@ -18,6 +18,7 @@ Vue.use(Router)
     icon: 'svg-name'             the icon show in the sidebar
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+    cache: false                 app-main --> keepalive
   }
  */
 
@@ -57,7 +58,8 @@ export const constantRoutes = [
         path: 'example1',
         name: 'Example1',
         meta: {
-          title: 'Example1'
+          title: 'Example1',
+          cache: true
         },
         component: () => import('@/views/example/Example1.vue')
       },

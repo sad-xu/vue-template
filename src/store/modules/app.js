@@ -1,7 +1,8 @@
 const state = {
   sidebar: {
     opened: localStorage.getItem('sidebarStatus') ? !!+localStorage.getItem('sidebarStatus') : true
-  }
+  },
+  cachedViews: []
 }
 
 const mutations = {
@@ -12,12 +13,21 @@ const mutations = {
     } else {
       localStorage.setItem('sidebarStatus', 0)
     }
+  },
+  ADD_CACHED_VIEW: (state, view) => {
+    if (state.cachedViews.includes(view.name)) return
+    if (view.meta.cache) {
+      state.cachedViews.push(view.name)
+    }
   }
 }
 
 const actions = {
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
+  },
+  addCachedView({ commit }, view) {
+    commit('ADD_CACHED_VIEW', view)
   }
 }
 
