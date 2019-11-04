@@ -20,10 +20,13 @@ export default {
     }
   },
   watch: {
-    $route(route) {
-      if (route.name) {
-        this.$store.dispatch('app/addCachedView', route)
-      }
+    $route: {
+      handler(route) {
+        if (route.name) {
+          this.$store.dispatch('app/addCachedView', route)
+        }
+      },
+      immediate: true
     }
   }
 }

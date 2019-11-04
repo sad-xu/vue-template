@@ -25,7 +25,8 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Scrollbar
+  Scrollbar,
+  Loading
   // MessageBox,
   // Message,
   // Notification
@@ -91,7 +92,6 @@ import {
   // Backtop,
   // PageHeader,
   // CascaderPanel,
-  // Loading
 } from 'element-ui'
 
 Vue.component('svg-icon', SvgIcon)
@@ -110,7 +110,33 @@ Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 
-// Vue.prototype.$loading = Loading.service
+// loading
+// 1. 声明式，组件局部加载 v-loading
+// 2. 命令式，$showLoading $hideLoading 最短显隐间隔1s
+const { directive: loadingDirective, service: loadingService } = Loading
+Vue.use(loadingDirective);
+(function() {
+  let t = 0
+  const LIMIT_TIME = 1000
+  Vue.prototype.$showLoading = (option = {
+    text: '加载中...',
+    background: 'rgba(242,242,242,0.5)',
+    lock: true
+  }) => {
+    t = new Date().getTime()
+    loadingService(option)
+  }
+
+  Vue.prototype.$hideLoading = () => {
+    let _t = new Date().getTime() - t
+    if (_t < LIMIT_TIME) {
+      setTimeout(() => {
+        loadingService().close()
+      }, LIMIT_TIME)
+    } else loadingService().close()
+  }
+}())
+
 // Vue.prototype.$msgbox = MessageBox
 // Vue.prototype.$alert = MessageBox.alert
 // Vue.prototype.$confirm = MessageBox.confirm
