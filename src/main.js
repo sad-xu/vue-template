@@ -13,6 +13,8 @@ import router from './router'
 
 import SvgIcon from './components/SvgIcon.vue'
 
+import { showLoading, hideLoading } from '@/utils'
+
 import {
   Dialog,
   Dropdown,
@@ -110,32 +112,10 @@ Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 
-// loading
-// 1. 声明式，组件局部加载 v-loading
-// 2. 命令式，$showLoading $hideLoading 最短显隐间隔1s
-const { directive: loadingDirective, service: loadingService } = Loading
-Vue.use(loadingDirective);
-(function() {
-  let t = 0
-  const LIMIT_TIME = 1000
-  Vue.prototype.$showLoading = (option = {
-    text: '加载中...',
-    background: 'rgba(242,242,242,0.5)',
-    lock: true
-  }) => {
-    t = new Date().getTime()
-    loadingService(option)
-  }
+Vue.use(Loading.directive)
 
-  Vue.prototype.$hideLoading = () => {
-    let _t = new Date().getTime() - t
-    if (_t < LIMIT_TIME) {
-      setTimeout(() => {
-        loadingService().close()
-      }, LIMIT_TIME)
-    } else loadingService().close()
-  }
-}())
+Vue.prototype.$showLoading = showLoading
+Vue.prototype.$hideLoading = hideLoading
 
 // Vue.prototype.$msgbox = MessageBox
 // Vue.prototype.$alert = MessageBox.alert

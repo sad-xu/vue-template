@@ -1,11 +1,7 @@
 
 // loading
-.el-loading-mask {
-  z-index: 9999 !important;
-  .el-loading-spinner {
-    padding-left: 200px;
-    top: 10%;
-  }
+.el-loading-spinner {
+  top: 10%;
 }
 
 .is-fullscreen {
@@ -13,3 +9,9 @@
     top: 50%;
   }
 }
+
+// message
+.el-message {
+  top: 60px !important;
+}
+

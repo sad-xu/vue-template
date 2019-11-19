@@ -49,7 +49,7 @@ const actions = {
       // }
       // const { name, avatar } = data
       commit('SET_NAME', 'name')
-      commit('SET_AVATAR', '')
+      commit('SET_AVATAR', require('@/assets/avatar.png'))
       resolve()
       // }).catch(error => {
       //   reject(error)

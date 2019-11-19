@@ -4,7 +4,7 @@ import store from '@/store'
 // import { getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API // url = base url + request url
+  baseURL: '' // url = base url + request url
   // withCredentials: true
 })
 
@@ -14,6 +14,9 @@ service.interceptors.request.use(
     // if (token) {
     //   // config.headers['X-Token'] = getToken()
     // }
+    if (!config.headers['Authorization']) {
+      config.headers['Authorization'] = `Bearer ${store.getters.token}`
+    }
     return config
   },
   error => {
@@ -34,8 +37,8 @@ service.interceptors.response.use(
           })
         })
       }
-      return res
-    } else return res
+      return Promise.reject(new Error(res.msg || 'Res Error'))
+    } else return res.data
   },
   error => {
     Message({

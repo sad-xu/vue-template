@@ -3,22 +3,38 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 
-body {
+body,
+html {
   height: 100%;
+  color: #353535;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(144, 147, 153, .3);
+    border-radius: 4px;
+    &:hover {
+      background-color: rgba(144, 147, 153, .5);
+    }
+    &:active {
+      background: #bbbbbb;
+    }
+  }
+  *::-webkit-scrollbar-track {
+    background: #fff;
+  }
 }
 
 label {
   font-weight: 700;
 }
 
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
 
 #app {
   height: 100%;
