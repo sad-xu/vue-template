@@ -5,12 +5,10 @@ export function exportHTMLToImg({
   el,
   name = 'example'
 }) {
-  return html2canvas(el, {
+  html2canvas(el, {
     logging: false
   }).then(canvas => {
-    console.log('canvas')
     canvas.toBlob(blob => {
-      console.log('blob')
       saveAs(blob, `${name}.png`)
     })
   })

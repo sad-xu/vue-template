@@ -3,10 +3,12 @@ import { showLoading, hideLoading } from '@/utils'
 // 导出excel
 export function exportExcel(option) {
   showLoading()
-  import('./excel.js').then(exportFn => {
-    hideLoading()
-    exportFn.exportJSONToExcel(option)
-  })
+  setTimeout(() => {
+    import('./excel.js').then(exportFn => {
+      hideLoading()
+      exportFn.exportJSONToExcel(option)
+    })
+  }, 100)
 }
 
 /**
@@ -18,10 +20,8 @@ export function exportImg(option) {
   showLoading()
   setTimeout(() => {
     import('./img.js').then(exportFn => {
-      return exportFn.exportHTMLToImg(option)
-    }).then(() => {
-      console.log('hideLoading')
       hideLoading()
+      exportFn.exportHTMLToImg(option)
     })
   }, 100)
 }
