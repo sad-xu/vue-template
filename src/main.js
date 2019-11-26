@@ -11,7 +11,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
-import SvgIcon from './components/SvgIcon.vue'
+import SvgIcon from './components/svg-icon'
+import ElTableInfiniteScroll from './components/el-table-infinite-scroll'
 
 import { showLoading, hideLoading } from '@/utils'
 
@@ -28,7 +29,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Scrollbar,
-  Loading
+  Loading,
   // MessageBox,
   // Message,
   // Notification
@@ -47,8 +48,8 @@ import {
   // Option,
   // OptionGroup,
   // ButtonGroup,
-  // Table,
-  // TableColumn,
+  Table,
+  TableColumn
   // DatePicker,
   // TimeSelect,
   // TimePicker,
@@ -96,8 +97,6 @@ import {
   // CascaderPanel,
 } from 'element-ui'
 
-Vue.component('svg-icon', SvgIcon)
-
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 2000 }
 Vue.use(Dialog)
 Vue.use(Input)
@@ -111,8 +110,13 @@ Vue.use(MenuItem)
 Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
+Vue.use(Table)
+Vue.use(TableColumn)
 
 Vue.use(Loading.directive)
+
+Vue.use(SvgIcon)
+Vue.use(ElTableInfiniteScroll)
 
 Vue.prototype.$showLoading = showLoading
 Vue.prototype.$hideLoading = hideLoading
