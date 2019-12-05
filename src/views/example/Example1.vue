@@ -7,22 +7,31 @@
     <el-button @click="doExportImg">
       Export To Img
     </el-button>
+    <el-button @click="doExportPDF">
+      Export To PDF
+    </el-button>
     <el-button @click="doExportExcel">
       Export To Excel
     </el-button>
     <el-table
-      v-el-table-infinite-scroll="loadMore" :data="tableList"
-      height="300"
+      id="page-1" v-el-table-infinite-scroll="loadMore"
+      :data="tableList" height="300"
       :infinite-scroll-distance="100" :infinite-scroll-immediate="false">
       <el-table-column prop="a"></el-table-column>
       <el-table-column prop="b"></el-table-column>
       <el-table-column prop="c"></el-table-column>
     </el-table>
+    <div id="page-2">
+      222点点滴滴
+    </div>
+    <div id="page-3">
+      333呃呃呃
+    </div>
   </div>
 </template>
 
 <script>
-import { exportImg, exportExcel } from '@/utils/export'
+import { exportImg, exportPDF, exportExcel } from '@/utils/export'
 
 export default {
   name: 'Example1',
@@ -51,6 +60,13 @@ export default {
         name: 'img'
       })
     },
+    doExportPDF() {
+      let idList = ['#page-1', '#page-2', '#page-3']
+      exportPDF({
+        name: 'pdf',
+        elList: idList.map(id => this.$el.querySelector(id))
+      })
+    },
     doExportExcel() {
       exportExcel({
         filename: 'aaa',
@@ -74,8 +90,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.exp1 {
-  font-size: 40px;
-  font-weight: bold;
-}
+  .exp1 {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  #page-2, #page-3 {
+    height: 300px;
+  }
+  #page-2 {
+    background-color: pink;
+  }
 </style>

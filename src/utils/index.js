@@ -26,3 +26,35 @@ export function hideLoading() {
     }, LIMIT_TIME)
   } else loadingService().close()
 }
+
+/**
+ * 动态加载资源
+ *
+ */
+export function loadSrc(src) {
+  const existingScriptDom = document.getElementById(src)
+  return new Promise((resolve, reject) => {
+    if (!existingScriptDom) {
+      const scriptDom = document.createElement('script')
+      scriptDom.src = src
+      scriptDom.id = src
+      document.body.appendChild(scriptDom)
+      if ('onload' in scriptDom) {
+        scriptDom.onload = function() {
+          this.onerror = this.onload = null
+          resolve()
+        }
+        scriptDom.onerror = function(err) {
+          this.onerror = this.onload = null
+          reject(err)
+        }
+      } else {
+        scriptDom.onreadystatechange = function() {
+          if (this.readyState !== 'complete' && this.readyState !== 'loaded') return
+          this.onreadystatechange = null
+          resolve()
+        }
+      }
+    } else resolve()
+  })
+}

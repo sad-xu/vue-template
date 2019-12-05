@@ -25,3 +25,14 @@ export function exportImg(option) {
     })
   }, 100)
 }
+
+// 导出PDF
+export function exportPDF(option) {
+  showLoading()
+  setTimeout(() => {
+    import('./pdf.js').then(exportFn => {
+      hideLoading()
+      exportFn.exportHTMLToPDF(option)
+    })
+  }, 100)
+}
