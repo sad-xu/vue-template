@@ -1,26 +1,33 @@
-import {
-  // login,
-  logout
-  // getInfo
-} from '@/api/user'
+// import {
+//   // login,
+//   logout
+//   // getInfo
+// } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
   name: '',
-  avatar: ''
+  avatar: '',
+  level: 0,
+  // 侧边栏路由
+  userRoutes: []
 }
 
 const mutations = {
   SET_TOKEN: (state, token) => {
     state.token = token
   },
-  SET_NAME: (state, name) => {
+  SET_USER_INFO: (state, { name, avatar, level }) => {
     state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+    state.level = level
+  },
+  SET_LEVEL: (state, level) => {
+    state.level = level
+  },
+  SET_USER_ROUTES: (state, routes) => {
+    state.userRoutes = routes
   }
 }
 
@@ -32,6 +39,9 @@ const actions = {
       //   const { data } = response
       let token = 'aaa'
       commit('SET_TOKEN', token)
+      if (userInfo.level) {
+        commit('SET_LEVEL', userInfo.level)
+      }
       setToken(token)
       resolve()
       // }).catch(error => {
@@ -40,7 +50,10 @@ const actions = {
     })
   },
 
+  // 获取用户信息
   getInfo({ commit, state }) {
+    // 每次进入页面调用
+    // 可在这里加入获取其他必须信息的接口
     return new Promise((resolve, reject) => {
       // getInfo(state.token).then(response => {
       //   const { data } = response
@@ -48,26 +61,28 @@ const actions = {
       //   reject('Verification failed, please Login again.')
       // }
       // const { name, avatar } = data
-      commit('SET_NAME', 'name')
-      commit('SET_AVATAR', require('@/assets/avatar.png'))
-      resolve()
+      const level = state.level || 0b1111
+      console.log(level)
+      commit('SET_USER_INFO', {
+        name: 'user1',
+        avatar: require('@/assets/avatar.png'),
+        level: level
+      })
+      resolve(level)
       // }).catch(error => {
       //   reject(error)
       // })
     })
   },
 
+  // 设置侧边栏
+  setUserRoutes({ commit }, routes) {
+    commit('SET_USER_ROUTES', routes)
+  },
+
   logout({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        commit('SET_TOKEN', '')
-        removeToken()
-        resetRouter()
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+    commit('SET_TOKEN', '')
+    removeToken()
   },
 
   resetToken({ commit }) {

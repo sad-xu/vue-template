@@ -4,13 +4,13 @@
     <el-button @click="loading">
       Loading
     </el-button>
-    <el-button @click="doExportImg">
+    <el-button v-if="hasPermission('EXPORT_IMG')" @click="doExportImg">
       Export To Img
     </el-button>
-    <el-button @click="doExportPDF">
+    <el-button v-if="hasPermission('EXPORT_PDF')" @click="doExportPDF">
       Export To PDF
     </el-button>
-    <el-button @click="doExportExcel">
+    <el-button v-if="hasPermission('EXPORT_EXCEL')" @click="doExportExcel">
       Export To Excel
     </el-button>
     <el-table

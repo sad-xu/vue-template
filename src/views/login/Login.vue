@@ -19,9 +19,25 @@
           type="password">
         </el-input>
       </div>
-      <el-button :loading="loading" class="login-button" type="primary" @click="handleLogin">
+      <el-button :loading="loading" class="login-button" type="primary" @click="handleLogin()">
         Login
       </el-button>
+      <!--  -->
+      <div class="permission-test">
+        <p class="tip">
+          默认账号admin拥有所有功能
+        </p>
+        <span class="tip">测试角色：</span>
+        <el-button @click="handleLogin(0b0111)">
+          没有example2路由的角色
+        </el-button>
+        <el-button @click="handleLogin(0b1011)">
+          没有导出Excel功能的角色
+        </el-button>
+        <p class="tip">
+          体验功能，测试角色登陆后再刷新，会拥有所有权限
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,9 +53,13 @@ export default {
     }
   },
   methods: {
-    handleLogin() {
+    handleLogin(level) {
       this.loading = true
-      this.$store.dispatch('user/login', this.loginForm).then(() => {
+      this.$store.dispatch('user/login', {
+        // username,
+        // password
+        level
+      }).then(() => {
         this.$router.push({ path: '/' })
         this.loading = false
       }).catch(() => {
@@ -93,6 +113,15 @@ export default {
       &:hover {
         background-color: #777;
       }
+    }
+  }
+
+  .permission-test {
+    margin: 20px 0;
+    .tip {
+      font-size: 14px;
+      color: #9e9e9e;
+      margin: 5px 0;
     }
   }
 </style>

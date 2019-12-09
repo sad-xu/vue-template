@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 import Layout from '@/layout/Layout.vue'
+
+import { checkPermission } from '@/utils/filter'
 
 Vue.use(Router)
 
@@ -16,13 +17,14 @@ Vue.use(Router)
     roles: ['admin','editor']    control the page roles (you can set multiple roles)
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'             the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+    // breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+    // activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
     cache: false                 app-main --> keepalive
+    permission: Number                权限
   }
  */
 
-export const constantRoutes = [
+const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/Login.vue'),
@@ -42,8 +44,10 @@ export const constantRoutes = [
         icon: 'dashboard'
       }
     }]
-  },
+  }
+]
 
+const asyncRoutes = [
   {
     path: '/example',
     component: Layout,
@@ -67,7 +71,8 @@ export const constantRoutes = [
         path: 'example2',
         name: 'Example2',
         meta: {
-          title: 'Example2'
+          title: 'Example2',
+          permission: 0b1000
         },
         component: () => import('@/views/example/Example2.vue')
       }
@@ -93,9 +98,36 @@ const createRouter = () => new Router({
 
 const router = createRouter()
 
-export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher
+// 根据权限生成路由
+export function initRouter(userLevel) {
+  let permissionRoutes = asyncRoutes.reduce((acc, route) => {
+    if (route.meta.permission) {
+      // 父
+      if (checkPermission(userLevel, route.meta.permission)) {
+        acc.push(route)
+      }
+    } else {
+      if (route.children) {
+        // 子
+        let children = route.children
+        for (let i = 0; i < children.length; i++) {
+          let permission = children[i].meta.permission
+          console.log(checkPermission(userLevel, permission))
+          if (permission && !checkPermission(userLevel, permission)) {
+            children.splice(i, 1)
+            i--
+          }
+        }
+        if (children.length) acc.push(route)
+      } else {
+        acc.push(route)
+      }
+    }
+    return acc
+  }, [])
+
+  router.addRoutes(permissionRoutes)
+  return constantRoutes.concat(permissionRoutes)
 }
 
 export default router

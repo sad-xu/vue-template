@@ -11,7 +11,7 @@
         :unique-opened="false"
         :collapse-transition="false"
         mode="vertical">
-        <sidebar-item v-for="route in routes" :key="route.path" :item="route" :base-path="route.path"></sidebar-item>
+        <sidebar-item v-for="route in userRoutes" :key="route.path" :item="route" :base-path="route.path"></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -34,11 +34,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
+      'userRoutes'
     ]),
-    routes() {
-      return this.$router.options.routes
-    },
+    // routes() {
+    //   return this.$router.options.routes
+    // },
     activeMenu() {
       const route = this.$route
       const { meta, path } = route

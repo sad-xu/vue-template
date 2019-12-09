@@ -1,4 +1,4 @@
-import router from './router'
+import router, { initRouter } from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress'
@@ -22,12 +22,24 @@ router.beforeEach(async(to, from, next) => {
         next()
       } else {
         try {
-          await store.dispatch('user/getInfo')
-          next()
+          // 用户信息
+          let permission = await store.dispatch('user/getInfo')
+          // 按权限生成路由
+          let routes = await initRouter(permission)
+          console.log(routes)
+          // 设置侧边栏
+          await store.dispatch('user/setUserRoutes', routes)
+          console.log(permission)
+          // 必须
+          if (from.path === '/') {
+            next({ ...to, replace: true })
+          } else {
+            next()
+          }
         } catch (error) {
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
-          next(`/login?redirect=${to.path}`)
+          next(`/login`)
           NProgress.done()
         }
       }
@@ -36,7 +48,7 @@ router.beforeEach(async(to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      next(`/login?redirect=${to.path}`)
+      next(`/login`)
       NProgress.done()
     }
   }

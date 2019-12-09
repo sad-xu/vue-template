@@ -11,6 +11,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import * as filter from '@/utils/filter.js'
+
 import SvgIcon from './components/svg-icon'
 import ElTableInfiniteScroll from './components/el-table-infinite-scroll'
 
@@ -127,6 +129,12 @@ Vue.prototype.$hideLoading = hideLoading
 // Vue.prototype.$prompt = MessageBox.prompt
 // Vue.prototype.$notify = Notification
 // Vue.prototype.$message = Message
+
+// 过滤器 && 全局函数
+for (let key in filter) {
+  Vue.filter(key, filter[key])
+  Vue.prototype[key] = filter[key]
+}
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
 Vue.config.devtools = IS_DEV
