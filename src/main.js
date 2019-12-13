@@ -11,6 +11,8 @@ import App from './App'
 import store from './store'
 import router from './router'
 
+import Tracker from '@/utils/tracker.js'
+
 import * as filter from '@/utils/filter.js'
 
 import SvgIcon from './components/svg-icon'
@@ -137,6 +139,28 @@ for (let key in filter) {
 }
 
 const IS_DEV = process.env.NODE_ENV !== 'production'
+
+// 埋点
+let tracker = new Tracker({
+  pageNumLimit: 5,
+  actionNumLimit: 5,
+  showHotSpots: IS_DEV,
+  baseURL: '/api/batch', // () => `${IS_DEV ? '' : '/'}api/point/batch?token=${localStorage.getItem('token')}`
+  directiveType: 'click',
+  logToData: logList => (JSON.stringify({
+    burying_id: 1,
+    point_list: logList
+  }))
+})
+tracker.init({
+  Vue,
+  router
+})
+Vue.prototype.$tracker = tracker
+if (IS_DEV) {
+  window.tracker = tracker
+}
+
 Vue.config.devtools = IS_DEV
 Vue.config.silent = IS_DEV
 Vue.config.productionTip = IS_DEV

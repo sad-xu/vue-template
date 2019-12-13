@@ -1,17 +1,29 @@
 <template>
   <div class="exp1">
     <p>EXP1</p>
-    <el-button @click="loading">
+    <el-button v-log="'loading'" @click="loading">
       Loading
     </el-button>
-    <el-button v-if="hasPermission('EXPORT_IMG')" @click="doExportImg">
+    <el-button
+      v-if="hasPermission('EXPORT_IMG')"
+      v-log="{ action: 'export img' }"
+      @click="doExportImg">
       Export To Img
     </el-button>
-    <el-button v-if="hasPermission('EXPORT_PDF')" @click="doExportPDF">
+    <el-button
+      v-if="hasPermission('EXPORT_PDF')"
+      v-log="{ action: 'export pdf' }"
+      @click="doExportPDF">
       Export To PDF
     </el-button>
-    <el-button v-if="hasPermission('EXPORT_EXCEL')" @click="doExportExcel">
+    <el-button
+      v-if="hasPermission('EXPORT_EXCEL')"
+      v-log="{ action: 'export excel' }"
+      @click="doExportExcel">
       Export To Excel
+    </el-button>
+    <el-button @click="addLog">
+      add a log
     </el-button>
     <el-table
       id="page-1" v-el-table-infinite-scroll="loadMore"
@@ -84,6 +96,10 @@ export default {
         { a: 1, b: 2, c: 3 },
         { a: 1, b: 2, c: 3 }
       ])
+    },
+    addLog() {
+      this.$tracker.addLog('add one log')
+      this.$tracker.addLog({ data: 'add two log' })
     }
   }
 }
