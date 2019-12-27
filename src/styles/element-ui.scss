@@ -15,3 +15,7 @@
   top: 60px !important;
 }
 
+// el-tabs 蓝框bug
+.el-tabs__item:focus.is-active.is-focus:not(:active) {
+  box-shadow: none;
+}

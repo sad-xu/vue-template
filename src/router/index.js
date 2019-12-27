@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout/Layout.vue'
 
-import { checkPermission } from '@/utils/filter'
+import { hasPermission } from '@/utils/filter'
 
 Vue.use(Router)
 
@@ -20,7 +20,7 @@ Vue.use(Router)
     // breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
     // activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
     cache: false                 app-main --> keepalive
-    permission: Number                权限
+    permissions: [String]                权限名列表
   }
  */
 
@@ -72,7 +72,7 @@ const asyncRoutes = [
         name: 'Example2',
         meta: {
           title: 'Example2',
-          permission: 0b1000
+          permissions: 'SHOW_EXAMPLE_3'
         },
         component: () => import('@/views/example/Example2.vue')
       }
@@ -101,9 +101,9 @@ const router = createRouter()
 // 根据权限生成路由
 export function initRouter(userLevel) {
   let permissionRoutes = asyncRoutes.reduce((acc, route) => {
-    if (route.meta.permission) {
+    if (route.meta.permissions) {
       // 父
-      if (checkPermission(userLevel, route.meta.permission)) {
+      if (hasPermission(route.meta.permissions, userLevel)) {
         acc.push(route)
       }
     } else {
@@ -111,9 +111,8 @@ export function initRouter(userLevel) {
         // 子
         let children = route.children
         for (let i = 0; i < children.length; i++) {
-          let permission = children[i].meta.permission
-          console.log(checkPermission(userLevel, permission))
-          if (permission && !checkPermission(userLevel, permission)) {
+          let permissions = children[i].meta.permissions
+          if (permissions && !hasPermission(permissions, userLevel)) {
             children.splice(i, 1)
             i--
           }
