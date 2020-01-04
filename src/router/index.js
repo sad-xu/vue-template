@@ -44,6 +44,19 @@ const constantRoutes = [
         icon: 'dashboard'
       }
     }]
+  },
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'css',
+      name: 'Css',
+      component: () => import('@/views/cssStage/CssStage.vue'),
+      meta: {
+        title: 'css-stage',
+        icon: 'dashboard'
+      }
+    }]
   }
 ]
 
