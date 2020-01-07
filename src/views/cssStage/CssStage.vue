@@ -1,73 +1,133 @@
 <template>
-  <div class="stage">
-    <!--  -->
-    <div class="effect effect-type-1">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+  <div>
+    <div
+      class="stage"
+      @animationend="animationEnd"
+      @animationstart="animationStart">
+      <!--  -->
+      <div class="effect effect-type-1">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <!--  -->
+      <div class="effect effect-type-2">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <!--  -->
+      <div class="effect effect-type-3">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-    <!--  -->
-    <div class="effect effect-type-2">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <!--  -->
-    <div class="effect effect-type-3">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <animation-prompt :animation-list="animationList"></animation-prompt>
   </div>
 </template>
 
 <script>
+import AnimationPrompt from './AnimationPrompt.vue'
+
 export default {
+  components: {
+    AnimationPrompt
+  },
+  data() {
+    return {
+      animationList: []
+    }
+  },
   mounted() {
     this.$nextTick(() => {
-      this.init()
+      // this.init()
     })
   },
   methods: {
     init() {
       let animationList = this.getAnimationList(this.$el)
+      animationList.sort((a, b) => a.delay - b.delay)
       console.log(animationList)
+      this.animationList = animationList
     },
+    // 获取所有有效animation
     getAnimationList(el) {
       let stack = [el]
       let animationList = []
       while (stack.length) {
         let node = stack.pop()
-        let animation = this.getAnimation(node)
-        let beforeAnimation = this.getAnimation(node, ':before')
-        let afterAnimation = this.getAnimation(node, ':after')
-        if (animation) animationList.push(animation)
-        if (beforeAnimation) animationList.push(beforeAnimation)
-        if (afterAnimation) animationList.push(afterAnimation)
+        let arr = [
+          ...this.getAnimation(node),
+          ...this.getAnimation(node, ':before'),
+          ...this.getAnimation(node, ':after')
+        ]
+        arr.forEach(item => {
+          animationList.push(item)
+        })
         for (let i = 0; i < node.children.length; i++) {
           stack.push(node.children[i])
         }
       }
       return animationList
     },
+    // 获取DOM上的animation样式
     getAnimation(element, pseudoElt = null) {
       let animation = window.getComputedStyle(element, pseudoElt).getPropertyValue('animation')
-      return animation === 'none 0s ease 0s 1 normal none running' ? '' : animation
+      // 0.6s           ease          0.5s          1             normal     forwards    running     show-type-1-data-v-695a3185
+      // duration | timing-function | delay | iteration-count | direction | fill-mode | play-state | name
+      return animation === 'none 0s ease 0s 1 normal none running'
+        ? []
+        : animation.split(', ').map(str => {
+          let arr = str.split(' ')
+          return {
+            duration: Number(arr[0].slice(0, -1)),
+            timingFunction: arr[1],
+            delay: Number(arr[2].slice(0, -1)),
+            iterationCount: arr[3],
+            direction: arr[4],
+            fillMode: arr[5],
+            playState: arr[6],
+            name: arr[7]
+          }
+        })
+    },
+    /*  */
+    animationStart(e) {
+      console.log('start', e)
+      let name = e.animationName.split('-data-v-')[0]
+      let index = this.animationList.findIndex(item => item.name === name)
+      if (index === -1) {
+        this.animationList.push({
+          name,
+          count: 1
+        })
+      } else {
+        this.animationList[index].count++
+      }
+    },
+    animationEnd(e) {
+      console.log('end', e)
+      let name = e.animationName.split('-data-v-')[0]
+      let index = this.animationList.findIndex(item => item.name === name)
+      if (--this.animationList[index].count === 0) {
+        this.animationList.splice(index, 1)
+      }
     }
   }
 }
@@ -119,14 +179,17 @@ export default {
         opacity: 0;
       }
     }
-    div:nth-child(1) { transform: rotate(0deg); }
-    div:nth-child(2) { transform: rotate(45deg); }
-    div:nth-child(3) { transform: rotate(90deg); }
-    div:nth-child(4) { transform: rotate(135deg); }
-    div:nth-child(5) { transform: rotate(180deg); }
-    div:nth-child(6) { transform: rotate(225deg); }
-    div:nth-child(7) { transform: rotate(270deg); }
-    div:nth-child(8) { transform: rotate(315deg); }
+    // div:nth-child(1) { transform: rotate(0deg); }
+    // div:nth-child(2) { transform: rotate(45deg); }
+    // div:nth-child(3) { transform: rotate(90deg); }
+    // div:nth-child(4) { transform: rotate(135deg); }
+    // div:nth-child(5) { transform: rotate(180deg); }
+    // div:nth-child(6) { transform: rotate(225deg); }
+    // div:nth-child(7) { transform: rotate(270deg); }
+    // div:nth-child(8) { transform: rotate(315deg); }
+    @for $i from 1 through 8 {
+      div:nth-child(#{$i}) { transform: rotate(45deg * $i); }
+    }
   }
   .effect-type-1 {
     top: calc(50% - 200px);
@@ -176,7 +239,7 @@ export default {
       show-type-1 0.6s ease 0.5s forwards;
   }
   .effect-type-2 {
-    animation: rotate-360 4s ease 0.6s forwards;
+    animation: rotate360 4s ease 0.6s forwards;
     div:after {
       animation:
         fade-in 0.3s ease 1.1s forwards,
@@ -186,7 +249,7 @@ export default {
   .effect-type-3 div:after {
     animation:
       fade-in 0.3s ease 1.7s forwards,
-      show-type-1 0.6s ease 1.7s forwards;
+      show-type-3 0.6s ease 1.7s forwards;
   }
 
   /* keyframes */
