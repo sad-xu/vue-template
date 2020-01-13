@@ -39,7 +39,7 @@
     "sass-loader": "^7.1.0",
     "svg-sprite-loader": "^4.1.6",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "vue-template-compiler": "^2.6.10",
+    "vue-template-compiler": "2.6.10",
     "webpack-bundle-analyzer": "^3.6.0"
   },
   "engines": {
