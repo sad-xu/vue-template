@@ -1,6 +1,8 @@
+const SIDEBAR_STATUS = 'sidebarStatus'
+
 const state = {
   sidebar: {
-    opened: localStorage.getItem('sidebarStatus') ? !!+localStorage.getItem('sidebarStatus') : true
+    opened: localStorage.getItem(SIDEBAR_STATUS) ? !!+localStorage.getItem(SIDEBAR_STATUS) : true
   },
   cachedViews: []
 }
@@ -8,11 +10,7 @@ const state = {
 const mutations = {
   TOGGLE_SIDEBAR: state => {
     state.sidebar.opened = !state.sidebar.opened
-    if (state.sidebar.opened) {
-      localStorage.setItem('sidebarStatus', 1)
-    } else {
-      localStorage.setItem('sidebarStatus', 0)
-    }
+    localStorage.setItem(SIDEBAR_STATUS, state.sidebar.opened ? 1 : 0)
   },
   ADD_CACHED_VIEW: (state, view) => {
     if (state.cachedViews.includes(view.name)) return
