@@ -109,7 +109,7 @@ const router = createRouter()
 // 根据权限生成路由
 export function initRouter(userLevel) {
   let permissionRoutes = asyncRoutes.reduce((acc, route) => {
-    if (route.meta.permissions) {
+    if (route.meta && route.meta.permissions) {
       // 父
       if (hasPermission(route.meta.permissions, userLevel)) {
         acc.push(route)
