@@ -92,8 +92,8 @@ export default {
   z-index: 9;
   background-color: rgba(238, 238, 238, 0.3);
   .prompt {
-    font-size: 14px;
-    margin-bottom: 3px;
+    font-size: 20px;
+    margin: 3px;
     text-align: right;
     .name {
       margin-right: 10px;
