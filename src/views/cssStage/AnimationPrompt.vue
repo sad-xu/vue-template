@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  position: fixed;
+  position: absolute;
   // display: flex;
   // flex-direction: column;
   min-width: 100px;

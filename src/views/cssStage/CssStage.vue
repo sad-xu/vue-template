@@ -135,7 +135,7 @@ export default {
 
 <style lang="scss" scoped>
   .stage {
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     background-color: #D3C7C0;

@@ -73,7 +73,7 @@ const asyncRoutes = [
           title: 'Example1',
           cache: true
         },
-        component: () => import('@/views/example/Example1.vue')
+        component: () => import('@/views/example/example1/Example1.vue')
       },
       {
         path: 'example2',
@@ -82,7 +82,7 @@ const asyncRoutes = [
           title: 'Example2',
           permissions: 'SHOW_EXAMPLE_3'
         },
-        component: () => import('@/views/example/Example2.vue')
+        component: () => import('@/views/example/example2/Example2.vue')
       }
     ]
   },
