@@ -59,7 +59,7 @@ const asyncRoutes = [
   {
     path: '/example',
     component: Layout,
-    redirect: '/example/example1',
+    redirect: '/example/export-test',
     name: 'Example',
     meta: {
       title: 'example',
@@ -67,22 +67,22 @@ const asyncRoutes = [
     },
     children: [
       {
-        path: 'example1',
-        name: 'Example1',
+        path: 'export-test',
+        name: 'ExportTest',
         meta: {
-          title: 'Example1',
+          title: 'ExampleTest',
           cache: true
         },
-        component: () => import('@/views/example/example1/Example1.vue')
+        component: () => import('@/views/example/exportTest/ExportTest.vue')
       },
       {
-        path: 'example2',
-        name: 'Example2',
+        path: 'real-preview',
+        name: 'RealPreview',
         meta: {
-          title: 'Example2',
+          title: 'RealPreview',
           permissions: 'SHOW_EXAMPLE_3'
         },
-        component: () => import('@/views/example/example2/Example2.vue')
+        component: () => import('@/views/example/realPreview/RealPreview.vue')
       }
     ]
   },

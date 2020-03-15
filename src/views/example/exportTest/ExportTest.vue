@@ -46,7 +46,7 @@
 import { exportImg, exportPDF, exportExcel } from '@/utils/export'
 
 export default {
-  name: 'Example1',
+  name: 'ExportTest',
   data() {
     return {
       tableList: [

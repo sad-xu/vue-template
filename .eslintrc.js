@@ -34,6 +34,8 @@ module.exports = {
         "component": "never"
       }
     }],
+    // 允许 v-html
+    "vue/no-v-html": 0,
     // 回调 防止误报
     "standard/no-callback-literal": 0,
     // 函数左括号不加空格

@@ -33,7 +33,7 @@ module.exports = {
   },
   css: {
     loaderOptions: {
-      // scss全局变量
+      // scss全局变量 prependData
       scss: {
         data: `@import "~@/styles/variables.scss";`
       }
@@ -65,7 +65,7 @@ module.exports = {
           test: /\.(js|css|json|html|ico|svg)(\?.*)?$/i,
           threshold: 10240,
           minRatio: 0.8
-        }),
+        })
         // 打包分析
         // new BundleAnalyzerPlugin()
       ]
