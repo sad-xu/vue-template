@@ -8,10 +8,10 @@
         class="stop-animation">
       </component> -->
       <iframe
-        src="https://www.dogedoge.com/"
+        src="/test.html"
         frameborder="0" scrolling="no"
-        sandbox="allow-scripts allow-pointer-lock allow-same-origin"
-        class="iframe">
+        class="iframe" sandbox="allow-scripts allow-pointer-lock allow-same-origin"
+        @load="iframeLoaded">
       </iframe>
     </div>
   </div>
@@ -31,9 +31,14 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.log(document.querySelector('.iframe').document)
+      // console.log(this.$el.querySelector('.iframe').contentWindow.document)
+      // console.log(this.$el.querySelector('.iframe').contentDocument.body)
     })
-    // document.querySelector('.iframe').document.body
+  },
+  methods: {
+    iframeLoaded() {
+      console.log(this.$el.querySelector('.iframe').contentWindow.document.body)
+    }
   }
 }
 </script>
