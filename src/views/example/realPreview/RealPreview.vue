@@ -8,7 +8,7 @@
         class="stop-animation">
       </component> -->
       <iframe
-        src="/test.html"
+        src="/animation.html"
         frameborder="0" scrolling="no"
         class="iframe" sandbox="allow-scripts allow-pointer-lock allow-same-origin"
         @load="iframeLoaded">
@@ -31,13 +31,22 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      let idocument = this.$el.querySelector('.iframe').contentWindow.document
+      let el = idocument.createElement('script')
+      // el.innerHTML = 'ABC'
+      el.text = 'console.log(window)'
+      idocument.head.appendChild(el)
       // console.log(this.$el.querySelector('.iframe').contentWindow.document)
       // console.log(this.$el.querySelector('.iframe').contentDocument.body)
     })
   },
   methods: {
     iframeLoaded() {
-      console.log(this.$el.querySelector('.iframe').contentWindow.document.body)
+      // let idocument = this.$el.querySelector('.iframe').contentWindow.document
+      // let el = idocument.createElement('script')
+      // el.text = 'console.log(window)'
+      // idocument.head.appendChild(el)
+      // console.log(this.$el.querySelector('.iframe').contentWindow.document.body)
     }
   }
 }
