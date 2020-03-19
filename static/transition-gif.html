@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>transition & gif</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        background-color:#e8d4b7;
+      }
+      .cube {
+        position: relative;
+        left: 0;
+        width: 200px;
+        height: 200px;
+        color: red;
+        transition: left 10s;
+      }
+      #cube-1 {
+        background-color: pink;
+      }
+      #cube-2 {
+        background-color: lightblue;
+      }
+      .gif {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cube-1" class="cube">延时100ms duration 10s</div>
+    <div id="cube-2" class="cube">延时5000ms duration 10s</div>
+
+    <img class="gif" src="http://img.qx.xl7z.link/2017/02/14/1487042811784582.gif?imageView2/4/w/180/h/180">
+
+    <script>
+      setTimeout(() => {
+        document.getElementById('cube-1').style.left = '400px'
+      }, 100)
+      setTimeout(() => {
+        document.getElementById('cube-2').style.left = '400px'
+      }, 5000)
+    </script>
+  </body>
+</html>

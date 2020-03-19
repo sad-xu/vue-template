@@ -2,51 +2,52 @@
   <div class="exp2">
     Example2
     <div class="box">
-      <!-- <component
-        :is="item.comp"
-        v-for="item in compList" :key="item.path"
-        class="stop-animation">
-      </component> -->
-      <iframe
-        src="/animation.html"
-        frameborder="0" scrolling="no"
-        class="iframe" sandbox="allow-scripts allow-pointer-lock allow-same-origin"
-        @load="iframeLoaded">
-      </iframe>
+      <div v-for="item in previewList" :key="item.name" class="iframe-wrapper">
+        <iframe
+          :src="item.src"
+          frameborder="0" scrolling="no"
+          class="iframe" sandbox="allow-scripts allow-pointer-lock allow-same-origin"
+          @load="iframeLoaded">
+        </iframe>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 
+const jsText = require('./test.js').default.toString()
+
 export default {
   name: 'RealPreview',
   data() {
     return {
-      // compList: [{
-      //   path: './works/CSSAnimation.vue',
-      //   comp: null
-      // }]
+      previewList: [{
+        name: 'css animation',
+        src: '/animation.html'
+      }, {
+        name: 'canvas',
+        src: '/canvas.html'
+      }, {
+        name: 'transition & gif',
+        src: '/transition-gif.html'
+      }, {
+        name: 'video',
+        src: '/video.html'
+      }]
     }
   },
   mounted() {
     this.$nextTick(() => {
-      let idocument = this.$el.querySelector('.iframe').contentWindow.document
-      let el = idocument.createElement('script')
-      // el.innerHTML = 'ABC'
-      el.text = 'console.log(window)'
-      idocument.head.appendChild(el)
-      // console.log(this.$el.querySelector('.iframe').contentWindow.document)
-      // console.log(this.$el.querySelector('.iframe').contentDocument.body)
+
     })
   },
   methods: {
-    iframeLoaded() {
-      // let idocument = this.$el.querySelector('.iframe').contentWindow.document
-      // let el = idocument.createElement('script')
-      // el.text = 'console.log(window)'
-      // idocument.head.appendChild(el)
-      // console.log(this.$el.querySelector('.iframe').contentWindow.document.body)
+    iframeLoaded(e) {
+      let idocument = e.target.contentWindow.document
+      let el = idocument.createElement('script')
+      el.text = `(${jsText}())`
+      idocument.head.appendChild(el)
     }
   }
 }
@@ -54,14 +55,23 @@ export default {
 
 <style lang="scss" scoped>
 .exp2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   font-size: 40px;
   font-weight: bold;
   .box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
     position: relative;
-    width: 600px;
-    height: 400px;
     overflow: hidden;
     margin: 30px;
+    .iframe-wrapper {
+      width: 40%;
+      height: 40%;
+    }
   }
 }
 
