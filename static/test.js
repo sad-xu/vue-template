@@ -1,4 +1,4 @@
-export default () => {
+(function() {
   window.open = function() { console.log('window.open is disabled.') }
   window.print = function() { console.log('window.print is disabled.') }
   window.alert = function() { console.log('window.alert is disabled.') }
@@ -122,6 +122,7 @@ export default () => {
 
       while (r = registered.pop()) {
         clearTimeout(r)
+        console.log('clearall', r)
       }
 
       this.timedOut = true
@@ -207,4 +208,4 @@ export default () => {
     pauseElementTypes('audio')
     pauseElementTypes('video')
   }, 100)
-}
+}())

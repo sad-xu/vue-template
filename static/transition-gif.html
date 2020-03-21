@@ -11,6 +11,7 @@
         padding: 0;
       }
       body {
+        height: 100vh;
         display: flex;
         flex-direction: column;
         background-color:#e8d4b7;
@@ -21,32 +22,35 @@
         width: 200px;
         height: 200px;
         color: red;
-        transition: left 10s;
       }
       #cube-1 {
         background-color: pink;
+        transition: left 10s;
       }
       #cube-2 {
         background-color: lightblue;
+        transition: left 10s 3s;
       }
       .gif {
         width: 200px;
       }
     </style>
+    <script type="text/javascript" src="./test.js"></script>
   </head>
   <body>
-    <div id="cube-1" class="cube">延时100ms duration 10s</div>
-    <div id="cube-2" class="cube">延时5000ms duration 10s</div>
+    <div id="cube-1" class="cube">延时100ms<br> duration 10s</div>
+    <div id="cube-2" class="cube">延时300ms<br> duration 10s</div>
 
     <img class="gif" src="http://img.qx.xl7z.link/2017/02/14/1487042811784582.gif?imageView2/4/w/180/h/180">
 
     <script>
       setTimeout(() => {
         document.getElementById('cube-1').style.left = '400px'
-      }, 100)
-      setTimeout(() => {
         document.getElementById('cube-2').style.left = '400px'
-      }, 5000)
+      }, 0)
+      // setTimeout(() => {
+      //   document.getElementById('cube-2').style.left = '400px'
+      // }, 5000)
     </script>
   </body>
 </html>

@@ -83,6 +83,13 @@ const asyncRoutes = [
           permissions: 'SHOW_EXAMPLE_3'
         },
         component: () => import('@/views/example/realPreview/RealPreview.vue')
+      },
+      {
+        path: 'ez-input',
+        meta: {
+          title: 'ezInput'
+        },
+        component: () => import('@/views/example/ezInput/InputTest.vue')
       }
     ]
   },
@@ -119,7 +126,7 @@ export function initRouter(userLevel) {
         // 子
         let children = route.children
         for (let i = 0; i < children.length; i++) {
-          let permissions = children[i].meta.permissions
+          let permissions = children[i].meta && children[i].meta.permissions
           if (permissions && !hasPermission(permissions, userLevel)) {
             children.splice(i, 1)
             i--

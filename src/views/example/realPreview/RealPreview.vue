@@ -16,7 +16,7 @@
 
 <script>
 
-const jsText = require('./test.js').default.toString()
+// const jsText = require('./test.js').default.toString()
 
 export default {
   name: 'RealPreview',
@@ -36,20 +36,15 @@ export default {
         src: '/video.html'
       }]
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-
-    })
-  },
-  methods: {
-    iframeLoaded(e) {
-      let idocument = e.target.contentWindow.document
-      let el = idocument.createElement('script')
-      el.text = `(${jsText}())`
-      idocument.head.appendChild(el)
-    }
   }
+  // methods: {
+  //   iframeLoaded(e) {
+  //     let idocument = e.target.contentWindow.document
+  //     let el = idocument.createElement('script')
+  //     el.text = `(${jsText}())`
+  //     idocument.head.appendChild(el)
+  //   }
+  // }
 }
 </script>
 
@@ -67,9 +62,9 @@ export default {
     height: 100%;
     position: relative;
     overflow: hidden;
-    margin: 30px;
+    margin: 0 30px;
     .iframe-wrapper {
-      width: 40%;
+      width: 45%;
       height: 40%;
     }
   }
