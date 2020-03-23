@@ -90,6 +90,14 @@ const asyncRoutes = [
           title: 'ezInput'
         },
         component: () => import('@/views/example/ezInput/InputTest.vue')
+      },
+      {
+        path: 'table',
+        name: 'Table',
+        meta: {
+          title: 'Table'
+        },
+        component: () => import('@/views/example/table/Table.vue')
       }
     ]
   },
