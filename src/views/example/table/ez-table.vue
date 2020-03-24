@@ -1,30 +1,37 @@
 <template>
   <div class="ez-table">
-    <!--  -->
+    <!-- <div class="ez-corner">
+      <div
+        v-for="item in tableData.fixedHead" :key="item.prop"
+        :style="`width:${item.width}px;`" class="cell">
+        {{ item.label }}
+      </div>
+    </div> -->
+    <!-- 左侧固定列 -->
     <div class="ez-side">
       <div class="ez-side-head">
-        <span
+        <div
           v-for="item in tableData.fixedHead" :key="item.prop"
-          :style="`width:${item.width}px;`" class="ez-item">
+          :style="`width:${item.width}px;`" class="cell">
           {{ item.label }}
-        </span>
+        </div>
       </div>
       <div v-for="(row, rowIndex) in tableBodyData" :key="rowIndex" class="ez-side-row">
-        <span
+        <div
           v-for="col in tableData.fixedHead" :key="col.prop"
-          :style="`width:${col.width}px;`">
+          class="cell" :style="`width:${col.width}px;`">
           {{ row[col.prop] }}
-        </span>
+        </div>
       </div>
     </div>
     <!--  -->
-    <div class="ez-content">
+    <div class="ez-content" :style="`left: ${tableData.fixedWidth}px;`">
       <div class="ez-content-head">
-        <span
+        <div
           v-for="item in tableData.normalHead" :key="item.label"
-          :style="`width:${item.width}px;`" class="ez-item">
+          :style="`width:${item.width}px;`" class="cell">
           {{ item.label }}
-        </span>
+        </div>
       </div>
       <table class="ez-content-table">
         <colgroup>
@@ -32,7 +39,9 @@
         </colgroup>
         <tr v-for="(row, rowIndex) in tableBodyData" :key="rowIndex">
           <td v-for="(col, colIndex) in tableData.normalHead" :key="colIndex">
-            {{ row[col.prop] }}
+            <div class="cell">
+              {{ row[col.prop] }}
+            </div>
           </td>
         </tr>
       </table>
@@ -41,70 +50,47 @@
 </template>
 
 <script>
+/*
+TODO
+  1. 排序
+  2. 函数式 solt
+
+*/
+
 export default {
   name: 'EzTable',
   data() {
     return {
-      tableHeadData: [{
-        label: '日期',
-        prop: 'date',
+      tableHeadData: Array.from({ length: 40 }).map((item, i) => ({
+        label: `index-${i}`,
+        prop: `prop-${i}`,
         width: 100,
-        fixed: true
-      }, {
-        label: '姓名',
-        prop: 'name',
-        width: 100,
-        fixed: true
-      }, {
-        label: '地址',
-        prop: 'address',
-        width: 100
-      }, {
-        label: 'aaaaaa',
-        prop: 'aa',
-        width: 100
-      }, {
-        label: 'bbbbbb',
-        prop: 'bb',
-        width: 100
-      }, {
-        label: 'cccccc',
-        prop: 'cc',
-        width: 100
-      }, {
-        label: 'dddddd',
-        prop: 'dd',
-        width: 100
-      }, {
-        label: 'eeeeee',
-        prop: 'ee',
-        width: 100
-      }],
-      tableBodyData: Array.from({ length: 10 }).map((item, index) => ({
-        date: '2016-05-02',
-        name: '王小虎' + index,
-        address: '上海市普陀区金沙江路 1518 弄',
-        aa: 'aaaa',
-        bb: 'bbbbb',
-        cc: '踩踩踩踩踩踩踩踩踩踩踩',
-        dd: '顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶',
-        ee: '呃呃呃呃呃呃呃呃呃'
-      }))
+        fixed: i <= 1
+      })),
+      tableBodyData: Array.from({ length: 50 }).map((d, index) => {
+        let obj = {}
+        for (let i = 0; i < 40; i++) {
+          obj[`prop-${i}`] = `item-${i}-${index}`
+        }
+        return obj
+      })
     }
   },
   computed: {
     tableData: function() {
       let fixedHead = []
       let normalHead = []
+      let fixedWidth = 0
       this.tableHeadData.forEach(item => {
-        if (item.fixed) fixedHead.push(item)
-        else normalHead.push(item)
+        if (item.fixed) {
+          fixedHead.push(item)
+          fixedWidth += item.width
+        } else normalHead.push(item)
       })
       return {
         fixedHead,
-        // fixedBody,
-        normalHead
-        // normalBody: []
+        normalHead,
+        fixedWidth
       }
     }
   },
@@ -124,42 +110,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-  .ez-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
   .ez-table {
-    display: flex;
     position: relative;
-    // width: 600px;
-    // height: 400px;
+    font-size: 14px;
     overflow: scroll;
+    will-change: scroll-position;
+
+    .ez-corner {
+      display: inline-flex;
+      position: sticky;
+      left: 0;
+      top: 0;
+      background-color: red;
+      z-index: 99;
+      .cell {
+          min-height: 40px;
+        }
+    }
+
+    .cell {
+      display: flex;
+      justify-content: left;
+      align-items: center;
+      flex-shrink: 0;
+      line-height: 23px;
+      min-height: 46px;
+      padding: 3px 10px;
+    }
     .ez-side {
       display: flex;
       flex-direction: column;
       position: sticky;
       float: left;
       left: 0;
+      box-shadow: 0 0 10px rgba(0,0,0,.12);
       z-index: 3;
       .ez-side-head {
         display: flex;
         flex-shrink: 0;
         position: sticky;
         top: 0;
-        height: 40px;
-        background-color: green;
+        background-color: #d6edff;
+        .cell {
+          min-height: 40px;
+        }
       }
       .ez-side-row {
         display: flex;
         flex-shrink: 0;
-        background-color: red;
         align-items: center;
+        background-color: #fff;
+        &:nth-of-type(even) {
+          background-color: #edf5fe;
+        }
       }
     }
     .ez-content {
+      position: absolute;
       display: flex;
       flex-direction: column;
       .ez-content-head {
@@ -167,16 +174,20 @@ export default {
         flex-shrink: 0;
         position: sticky;
         top: 0;
-        height: 40px;
-        z-index: 2;
-        > span {
-          flex-shrink: 0;
-          background-color: green;
+        background-color: #d6edff;
+        .cell {
+          min-height: 40px;
         }
       }
       .ez-content-table {
         flex-shrink: 0;
         border-spacing: inherit;
+        tr {
+          background-color: #fff;
+          &:nth-of-type(even) {
+            background-color: #edf5fe;
+          }
+        }
       }
     }
   }

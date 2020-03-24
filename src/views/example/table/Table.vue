@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1>Example-table</h1>
+    <h1>Example-table v0.2</h1>
     <ez-table class="table-wrapper"></ez-table>
   </div>
 </template>
@@ -44,8 +44,8 @@ export default {
   }
 
   .table-wrapper {
-    width: 500px;
-    height: 400px;
+    width: 800px;
+    height: 600px;
     margin: 0 auto;
   }
 </style>
