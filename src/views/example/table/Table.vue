@@ -48,6 +48,27 @@
             [{ props: value }]
           </td>
         </tr>
+        <tr>
+          <td>infinite-scroll</td>
+          <td>是否开启无限滚动</td>
+          <td>
+            Boolean false
+          </td>
+        </tr>
+        <tr>
+          <td>infinite-scroll-delay</td>
+          <td>滚动加载更多事件节流延时 TODO: bug</td>
+          <td>
+            Number (200ms)
+          </td>
+        </tr>
+        <tr>
+          <td>infinite-scroll-distance</td>
+          <td>滚动加载更多事件触发距离阈值</td>
+          <td>
+            Number (0px)
+          </td>
+        </tr>
       </table>
       <p class="title">
         Table Events
@@ -68,6 +89,11 @@
           <td>行点击事件</td>
           <td>row, index</td>
         </tr>
+        <tr>
+          <td>@loadMore</td>
+          <td>滚动加载更多事件</td>
+          <td>-</td>
+        </tr>
       </table>
       <p class="title">
         Table Slot
@@ -85,7 +111,9 @@
     </div>
     <ez-table
       :table-header-data="tableHeaderData" :table-body-data="tableBodyData"
+      infinite-scroll :infinite-scroll-delay="200" :infinite-scroll-distance="100"
       class="table-wrapper"
+      @loadMore="handleLoadMore"
       @sortChange="handleSortChange"
       @rowClick="handleRowClick">
       <template v-slot:prop-1="{ row }">
@@ -119,9 +147,8 @@ export default {
         fixed: i <= 1,
         // 是否可排序
         sortable: Boolean(Math.random() > 0.5)
-        // 内容自定义
       })),
-      tableBodyData: Array.from({ length: 50 }).map((d, index) => {
+      tableBodyData: Array.from({ length: 20 }).map((d, index) => {
         let obj = {}
         for (let i = 0; i < 40; i++) {
           obj[`prop-${i}`] = `item-${i}-${index}`
@@ -142,6 +169,17 @@ export default {
     // 行点击事件
     handleRowClick(row, index) {
       console.log(row, index)
+    },
+    // 加载更多事件
+    handleLoadMore() {
+      let startIndex = this.tableBodyData.length
+      this.tableBodyData = this.tableBodyData.concat(Array.from({ length: 20 }).map((d, index) => {
+        let obj = {}
+        for (let i = 0; i < 40; i++) {
+          obj[`prop-${i}`] = `item-${i}-${index + startIndex}`
+        }
+        return obj
+      }))
     }
   }
 }

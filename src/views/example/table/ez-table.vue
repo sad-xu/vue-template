@@ -5,7 +5,7 @@
       <div
         v-for="item in tableData.fixedHeader" :key="item.prop"
         :style="`width:${item.width}px;`" class="cell"
-        @click="handleHeaderClick(item)">
+        @click.stop="handleHeaderClick(item)">
         {{ item.label }}
         <!-- sort -->
         <div
@@ -17,7 +17,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="ez-table">
+    <div class="ez-table" @scroll="handleScroll">
       <!-- 左侧固定列 -->
       <div v-if="tableData.fixedHeader.length" class="ez-side">
         <!-- 被左上角覆盖 -->
@@ -30,7 +30,7 @@
         </div>
         <div
           v-for="(row, rowIndex) in tableBodyData" :key="rowIndex"
-          class="ez-side-row" @click="handleRowClick(row, rowIndex)">
+          class="ez-side-row" @click.stop="handleRowClick(row, rowIndex)">
           <div
             v-for="col in tableData.fixedHeader" :key="col.prop"
             class="cell" :style="`width:${col.width}px;`">
@@ -47,7 +47,7 @@
           <div
             v-for="item in tableData.normalHeader" :key="item.prop"
             :style="`width:${item.width}px;`" class="cell"
-            @click="handleHeaderClick(item)">
+            @click.stop="handleHeaderClick(item)">
             {{ item.label }}
             <!-- sort -->
             <div
@@ -83,17 +83,30 @@
 <script>
 /*
 TODO
-  1. 排序 ✌
+  1. sort ✌
   2. slot ✌
+  3. infinite-scroll
 
   @sortChange 排序事件
   @rowClick   行点击事件
 */
 
+const throttle = (fn, delay = 200) => {
+  let timeId = null
+  return function(...args) {
+    if (timeId) return
+    timeId = window.setTimeout(() => {
+      fn.apply(this, args)
+      timeId = null
+    }, delay)
+  }
+}
+
 export default {
   name: 'EzTable',
   props: {
     /**
+     * 表头数据
      * [{
      *  label: String,
      *  prop: String,
@@ -108,6 +121,7 @@ export default {
       required: true
     },
     /**
+     * 内容
      * [{
      *  props: value
      * }]
@@ -116,6 +130,24 @@ export default {
     tableBodyData: {
       type: Array,
       required: true
+    },
+    /**
+     * 无限滚动
+     *  infiniteScroll 是否开启
+     *  infiniteScrollDelay 节流延时
+     *  infiniteScrollDistance 触发距离
+     */
+    infiniteScroll: {
+      type: Boolean,
+      default: false
+    },
+    infiniteScrollDelay: { // ????
+      type: Number,
+      default: 200
+    },
+    infiniteScrollDistance: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -124,7 +156,9 @@ export default {
       sortInfo: {
         prop: '',
         order: '' // ascending, descending
-      }
+      },
+      // 上次纵向滚动距离
+      lastScrollTop: 0
     }
   },
   computed: {
@@ -177,7 +211,16 @@ export default {
     // 某一行点击事件
     handleRowClick(row, rowIndex) {
       this.$emit('rowClick', row, rowIndex)
-    }
+    },
+    // 滚动事件
+    handleScroll: throttle(function(e) {
+      let { scrollTop, scrollHeight, clientHeight } = e.target
+      if (this.lastScrollTop === scrollTop) return
+      this.lastScrollTop = scrollTop
+      if (scrollHeight - scrollTop - clientHeight <= this.infiniteScrollDistance) {
+        this.$emit('loadMore')
+      }
+    }, 200)
   }
 }
 </script>
