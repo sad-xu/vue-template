@@ -3,7 +3,7 @@
     <logo v-if="showLogo" :collapse="isCollapse"></logo>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        :default-active="activeMenu"
+        :default-active="$route.path"
         :collapse="isCollapse"
         background-color="#f5f5f5"
         text-color="#555"
@@ -37,17 +37,6 @@ export default {
       'sidebar',
       'userRoutes'
     ]),
-    // routes() {
-    //   return this.$router.options.routes
-    // },
-    activeMenu() {
-      const route = this.$route
-      const { meta, path } = route
-      if (meta.activeMenu) {
-        return meta.activeMenu
-      }
-      return path
-    },
     isCollapse() {
       return !this.sidebar.opened
     }
