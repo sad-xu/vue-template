@@ -23,8 +23,8 @@ Vue.use(Router)
 const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login/Login.vue'),
-    hidden: true
+    hidden: true,
+    component: () => import('@/views/login/Login.vue')
   },
   {
     path: '/',
@@ -33,68 +33,94 @@ const constantRoutes = [
     children: [{
       path: 'home',
       name: 'Home',
-      component: () => import('@/views/home/Home.vue'),
       meta: {
         title: 'Home',
-        icon: 'dashboard'
-      }
+        icon: 'xianrenzhang-3'
+      },
+      component: () => import('@/views/home/Home.vue')
     }]
-  },
-  {
-    path: '/css',
-    component: () => import('@/views/cssStage/CssStage.vue'),
-    meta: {
-      title: 'css-stage',
-      icon: 'dashboard'
-    }
   }
 ]
 
 const asyncRoutes = [
-  {
-    path: '/example',
+  { // CSS 动画
+    path: '/',
     component: Layout,
-    redirect: '/example/export-test',
-    name: 'Example',
-    meta: {
-      title: 'example',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'export-test',
-        name: 'ExportTest',
-        meta: {
-          title: 'ExampleTest',
-          cache: true
-        },
-        component: () => import('@/views/example/exportTest/ExportTest.vue')
+    children: [{
+      path: 'css-stage',
+      name: 'CssStage',
+      meta: {
+        title: 'CSS Stage',
+        icon: 'huolieniao'
       },
-      {
-        path: 'real-preview',
-        name: 'RealPreview',
-        meta: {
-          title: 'RealPreview',
-          permissions: 'SHOW_EXAMPLE_3'
-        },
-        component: () => import('@/views/example/realPreview/RealPreview.vue')
+      component: () => import('@/views/cssStage/CssStage.vue')
+    }]
+  },
+  { // 真实预览
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'real-preview',
+      name: 'RealPreview',
+      meta: {
+        title: 'Real Preview',
+        icon: 'huli'
       },
-      {
-        path: 'ez-input',
-        meta: {
-          title: 'ezInput'
-        },
-        component: () => import('@/views/example/ezInput/InputTest.vue')
+      component: () => import('@/views/realPreview/RealPreview.vue')
+    }]
+  },
+  { // SVG 图标
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'icon-list',
+      name: 'IconList',
+      meta: {
+        title: 'Icon List',
+        icon: 'niao',
+        permissions: 'SHOW_ICON_LIST'
       },
-      {
-        path: 'table',
-        name: 'Table',
-        meta: {
-          title: 'Table'
-        },
-        component: () => import('@/views/example/table/Table.vue')
-      }
-    ]
+      component: () => import('@/views/iconList/IconList.vue')
+    }]
+  },
+  { // 导出测试
+    path: '/',
+    component: Layout,
+    children: [{
+      path: '/export-test',
+      name: 'ExportTest',
+      meta: {
+        title: 'Export Test',
+        icon: 'xiaolu'
+      },
+      component: () => import('@/views/exportTest/ExportTest.vue')
+    }]
+  },
+  { // 表格组件
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'table',
+      name: 'Table',
+      meta: {
+        title: 'Ez Table',
+        icon: 'xueshan'
+      },
+      component: () => import('@/views/ezTable/TableTest.vue')
+    }]
+  },
+  { // 输入框组件
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'ez-input',
+      meta: {
+        title: 'Ez Input',
+        icon: 'shuye-3',
+        cache: true
+      },
+      component: () => import('@/views/ezInput/InputTest.vue')
+    }]
   },
 
   {

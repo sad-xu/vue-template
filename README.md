@@ -38,9 +38,7 @@
 
 * 路由自动生成侧边栏
 
-* 导出图片 TODO: 待升级
-
-* 导出PDF（实际是图片）
+* 导出图片、PDF
 
 * 导出Excel 支持加粗、合并、边框
 
@@ -50,13 +48,23 @@
 
 ## 实验室
 
-* css动画
+* CSS 动画
 
 * `codepen` 真实预览功能
+
+* 当前项目所有的 `svg-icon` 生成及预览
 
 * 轻量级表格组件 `ez-table`
 
 * 数字输入框 `ez-input` TODO: 未完成
+
+## TODO
+
+* 虚假截图
+
+* 代码美化插件
+
+* infiniti-scroll unbind 报错
 
 ## 项目结构
 

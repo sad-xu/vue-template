@@ -6,10 +6,11 @@ $subMenuHover:#e6e6e6;
 
 #app {
   .main-container {
-    min-height: 100%;
+    // min-height: 100%;
     transition: margin-left .28s;
     margin-left: $sideBarWidth;
     position: relative;
+    overflow: hidden;
   }
   .sidebar-container {
     transition: width 0.28s;
@@ -59,6 +60,7 @@ $subMenuHover:#e6e6e6;
 
     .svg-icon {
       margin-right: 16px;
+      transform: scale(2.5);
     }
 
     .el-menu {

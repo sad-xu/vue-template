@@ -1,6 +1,6 @@
 <template>
   <div class="exp2">
-    Example2
+    Real Preview
     <div class="box">
       <div v-for="item in previewList" :key="item.name" class="iframe-wrapper">
         <iframe

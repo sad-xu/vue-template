@@ -36,14 +36,16 @@ export default {
 .app-main {
   /*50 = navbar   calc(100vh - 50px); */
   /* min-height: 100vh; */
-  height: 100vh;
-  overflow: auto;
-  width: 100%;
   position: relative;
+  width: 100%;
+  height: calc(100vh - 50px);
+  margin-top: 50px;
+  padding: 20px;
+  overflow: auto;
 }
-.fixed-header+.app-main {
+/* .fixed-header+.app-main {
   padding-top: 50px;
-}
+} */
 
 /* fade-transform */
 .fade-transform-leave-active,

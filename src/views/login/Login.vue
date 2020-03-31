@@ -29,7 +29,7 @@
         </p>
         <span class="tip">测试角色：</span>
         <el-button @click="handleLogin(0b0111)">
-          没有example2路由的角色
+          没有icon-list页的角色
         </el-button>
         <el-button @click="handleLogin(0b1011)">
           没有导出Excel功能的角色

@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "icon": "node ./src/views/iconList/iconinit.js",
     "test:unit": "jest --clearCache && vue-cli-service test:unit"
   },
   "dependencies": {

@@ -8,7 +8,7 @@ const PERMISSION_MAP = {
   // 导出excel
   EXPORT_EXCEL: 2,
   // example页面 3
-  SHOW_EXAMPLE_3: 3
+  SHOW_ICON_LIST: 3
 }
 
 function check(name, level) {

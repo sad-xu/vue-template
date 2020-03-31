@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="prompt-wrapper">
     <!-- <div
       v-for="item in mergeCommon(activatedList)" :key="item.name"
       class="prompt">
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.prompt-wrapper {
   position: absolute;
   // display: flex;
   // flex-direction: column;

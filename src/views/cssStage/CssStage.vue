@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div
       class="stage"
       @animationend="animationEnd"
@@ -134,6 +134,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .wrapper {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
   .stage {
     position: absolute;
     width: 100%;
