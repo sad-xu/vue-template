@@ -3,6 +3,17 @@
 @import './element-ui.scss';
 @import './sidebar.scss';
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body,
 html {
   height: 100%;
@@ -17,18 +28,18 @@ html {
     width: 6px;
     height: 6px;
   }
-  *::-webkit-scrollbar-thumb {
-    background-color: rgba(144, 147, 153, .3);
-    border-radius: 4px;
-    &:hover {
-      background-color: rgba(144, 147, 153, .5);
-    }
-    &:active {
-      background: #bbbbbb;
-    }
-  }
   *::-webkit-scrollbar-track {
     background: #fff;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: rgba(144, 147, 153, 0.3);
+    border-radius: 4px;
+    &:hover {
+      background-color: rgba(144, 147, 153, 0.5);
+    }
+    &:active {
+      background: #bbb;
+    }
   }
 }
 
@@ -40,24 +51,8 @@ label {
   height: 100%;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
 h1 {
   margin: 0;
-}
-
-a:focus,
-a:active {
-  outline: none;
 }
 
 a,
@@ -68,12 +63,17 @@ a:hover {
   text-decoration: none;
 }
 
+a:focus,
+a:active {
+  outline: none;
+}
+
 div:focus {
   outline: none;
 }
 
 .clearfix {
-  &:after {
+  &::after {
     visibility: hidden;
     display: block;
     font-size: 0;
@@ -82,5 +82,3 @@ div:focus {
     height: 0;
   }
 }
-
-

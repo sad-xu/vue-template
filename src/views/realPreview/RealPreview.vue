@@ -74,8 +74,10 @@ export default {
   width: 200%;
   height: 200%;
   transform-origin: left top;
-  transform: scale(.5);
-  *, *::before, *::after {
+  transform: scale(0.5);
+  *,
+  *::before,
+  *::after {
     animation-play-state: paused !important;
   }
 }
@@ -84,6 +86,6 @@ iframe {
   width: 200%;
   height: 200%;
   transform-origin: left top;
-  transform: scale(.5);
+  transform: scale(0.5);
 }
 </style>

@@ -41,7 +41,7 @@ export default {
     position: relative;
     height: 100%;
     width: 100%;
-    &:after {
+    &::after {
       content: "";
       display: table;
       clear: both;
@@ -67,6 +67,6 @@ export default {
   }
 
   .hideSidebar .fixed-header {
-    width: calc(100% - 54px)
+    width: calc(100% - 54px);
   }
 </style>

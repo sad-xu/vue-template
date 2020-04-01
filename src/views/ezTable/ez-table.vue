@@ -269,7 +269,7 @@ export default {
       position: sticky;
       float: left;
       left: 0;
-      box-shadow: 0 0 10px rgba(0,0,0,.12);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.12);
       z-index: 2;
       .ez-side-header {
         display: flex;
@@ -323,7 +323,8 @@ export default {
     position: relative;
     height: 34px;
     width: 24px;
-    .ascending, .descending {
+    .ascending,
+    .descending {
       position: absolute;
       left: 7px;
       width: 0;

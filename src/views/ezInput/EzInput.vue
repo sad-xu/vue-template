@@ -1,14 +1,12 @@
 <template>
   <label class="input-label">
-    <span class="text">{{ value | formatNum }}</span>
+    <span id="a" class="text" msf="a">{{ value | formatNum }}</span>
     <input
       :value="value" type="number"
       class="input" :class="hideInput ? 'hide-input' : ''"
-      @keypress="handlePress"
-      @input="handleInput"
-      @focus="handleFocus"
-      @blur="handleBlur">
-    <div class="tip">
+      @keypress="handlePress" @input="handleInput"
+      @focus="handleFocus" @blur="handleBlur">
+    <div class>
       <p>value: {{ value | formatNum }}</p>
       <p>lastVal: {{ lastVal }}</p>
     </div>
@@ -108,36 +106,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .input-label {
-    position: relative;
-    .text {
-      font-weight: normal;
-      min-width: 60px;
-      color: #333;
-      padding: 0 13px 2px;
-      border-bottom: 1px solid #e0e0e0;
+.input-label {
+  position: relative;
+  .text {
+    font-weight: normal;
+    min-width: 60px;
+    color: #333;
+    padding: 0 13px 2px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    border: none;
+    padding: 0;
+    color: #333;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0;
     }
-    .input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      border: none;
-      padding: 0;
-      color: #333;
-      &::-webkit-outer-spin-button,
-      &::-webkit-inner-spin-button {
-        -webkit-appearance: none !important;
-        margin: 0;
-      }
-      &:focus {
-        outline-width: 0;
-        outline-style: none;
-      }
-    }
-    .hide-input {
-      opacity: 0;
+    &:focus {
+      outline-width: 0;
+      outline-style: none;
     }
   }
+  .hide-input {
+    opacity: 0;
+  }
+}
 </style>

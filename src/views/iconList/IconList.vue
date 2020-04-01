@@ -40,14 +40,14 @@ export default {
       width: 16%;
       font-size: 14px;
       padding: 15px 10px;
-      &:hover .icon {
-        transform: scale(1.5);
-      }
       .icon {
         width: 60px;
         height: 60px;
         margin-bottom: 12px;
-        transition: transform .5s;
+        transition: transform 0.5s;
+      }
+      &:hover .icon {
+        transform: scale(1.5);
       }
     }
   }

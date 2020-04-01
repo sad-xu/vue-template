@@ -111,7 +111,8 @@ export default {
     font-weight: bold;
   }
 
-  #page-2, #page-3 {
+  #page-2,
+  #page-3 {
     height: 300px;
   }
   #page-2 {

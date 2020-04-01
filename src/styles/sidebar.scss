@@ -3,11 +3,11 @@ $menuHover:#e6e6e6;
 $subMenuBg:#f5f5f5;
 $subMenuHover:#e6e6e6;
 
-
+/* stylelint-disable no-descending-specificity */
 #app {
   .main-container {
     // min-height: 100%;
-    transition: margin-left .28s;
+    transition: margin-left 0.28s;
     margin-left: $sideBarWidth;
     position: relative;
     overflow: hidden;
@@ -18,7 +18,7 @@ $subMenuHover:#e6e6e6;
     background-color: #f5f5f5; // $menuBg;
     height: 100%;
     position: fixed;
-    font-size: 0px;
+    font-size: 0;
     top: 0;
     bottom: 0;
     left: 0;
@@ -35,7 +35,7 @@ $subMenuHover:#e6e6e6;
     }
 
     .el-scrollbar__bar.is-vertical {
-      right: 0px;
+      right: 0;
     }
 
     .el-scrollbar {
@@ -77,11 +77,11 @@ $subMenuHover:#e6e6e6;
       }
     }
 
-    .is-active>.el-submenu__title {
+    .is-active > .el-submenu__title {
       color: $subMenuActiveText !important;
     }
 
-    & .nest-menu .el-submenu>.el-submenu__title,
+    & .nest-menu .el-submenu > .el-submenu__title,
     & .el-submenu .el-menu-item {
       min-width: $sideBarWidth !important;
       background-color: $subMenuBg !important;
@@ -116,7 +116,7 @@ $subMenuHover:#e6e6e6;
     .el-submenu {
       overflow: hidden;
 
-      &>.el-submenu__title {
+      & > .el-submenu__title {
         padding: 0 !important;
 
         .svg-icon {
@@ -131,8 +131,8 @@ $subMenuHover:#e6e6e6;
 
     .el-menu--collapse {
       .el-submenu {
-        &>.el-submenu__title {
-          &>span {
+        & > .el-submenu__title {
+          & > span {
             height: 0;
             width: 0;
             overflow: hidden;
@@ -146,23 +146,22 @@ $subMenuHover:#e6e6e6;
   .el-menu--collapse .el-menu .el-submenu {
     min-width: $sideBarWidth !important;
   }
-
 }
 
 // when menu collapsed
 .el-menu--vertical {
-  &>.el-menu {
+  & > .el-menu {
     .svg-icon {
       margin-right: 16px;
     }
   }
-  .nest-menu .el-submenu>.el-submenu__title,
+  .nest-menu .el-submenu > .el-submenu__title,
   .el-menu-item {
     &:hover {
       background-color: $menuHover !important;
     }
   }
-  >.el-menu--popup {
+  > .el-menu--popup {
     max-height: 100vh;
     overflow-y: auto;
     &::-webkit-scrollbar-track-piece {
@@ -177,3 +176,4 @@ $subMenuHover:#e6e6e6;
     }
   }
 }
+/* stylelint-enable no-descending-specificity */

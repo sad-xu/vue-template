@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .input-wrapper {
-    margin-left: 30px;
-  }
+.input-wrapper {
+  margin-left: 30px;
+}
 </style>

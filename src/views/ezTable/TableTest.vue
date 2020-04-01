@@ -123,7 +123,7 @@
         <el-button>{{ row['prop-3'] }}</el-button>
       </template>
       <template v-slot:prop-4="{ row }">
-        <span style="color:red;">{{ row['prop-4'] }}</span>
+        <span style="color: red;">{{ row['prop-4'] }}</span>
       </template>
     </ez-table>
   </div>
@@ -199,7 +199,7 @@ export default {
     flex-direction: column;
     padding: 1% 2% 2% 2%;
     .title {
-      font-family: -webkit-pictograph;
+      font-family: sans-serif, -webkit-pictograph;
       color: grey;
     }
     table {

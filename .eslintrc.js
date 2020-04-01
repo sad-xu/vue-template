@@ -10,10 +10,28 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:vue/recommended', 
-    '@vue/standard'
+    '@vue/standard',
+    // '@vue/prettier',
+    'plugin:vue/recommended',
+    // 'plugin:prettier/recommended'
   ],
   rules: {
+    // 防止规则冲突
+    // "prettier/prettier": ["error", {
+    //   // 单引号
+    //   "singleQuote": true,
+    //   // 不加分号
+    //   "semi": false,
+    //   // fixed: error Delete `␍`
+    //   "endOfLine": "auto",
+    //   // HTML内的空格敏感
+    //   // "htmlWhitespaceSensitivity": "css",
+    //   // 不需要尾随逗号
+    //   // "trailingComma": "none",
+
+    //   // "jsxBracketSameLine": true,
+    //   // "insertPragma": true
+    // }],
     // 多属性换行规则
     "vue/max-attributes-per-line": [2, {
       "singleline": 4,

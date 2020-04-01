@@ -144,8 +144,8 @@ export default {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #D3C7C0;
-    &:before {
+    background-color: #d3c7c0;
+    &::before {
       content: '';
       position: absolute;
       top: 20px;
@@ -156,7 +156,7 @@ export default {
       border-radius: 30px;
       opacity: 0.3;
     }
-    &:after {
+    &::after {
       content: '';
       position: absolute;
       width: 400px;
@@ -179,7 +179,7 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
-      &:after {
+      &::after {
         content: '';
         position: absolute;
         opacity: 0;
@@ -200,7 +200,7 @@ export default {
   .effect-type-1 {
     top: calc(50% - 200px);
     left: calc(50% - 200px);
-    div:after {
+    div::after {
       top: 5px;
       left: calc(50% - 20px);
       border-top: solid 70px #635256;
@@ -212,7 +212,7 @@ export default {
   .effect-type-2 {
     top: 50%;
     left: calc(50% - 400px);
-    div:after {
+    div::after {
       top: 0;
       left: calc(50% - 40px);
       width: 40px;
@@ -225,7 +225,7 @@ export default {
   .effect-type-3 {
     top: calc(50% - 400px);
     left: 50%;
-    div:after {
+    div::after {
       top: 0;
       left: calc(50% - 20px);
       width: 40px;
@@ -236,42 +236,47 @@ export default {
   }
 
   /* animation */
-  .stage:after {
+  /* stylelint-disable no-duplicate-selectors */
+  .stage::after {
     animation: hidden-ball 0.6s ease 0s forwards;
   }
-  .effect-type-1 div:after {
+  .effect-type-1 div::after {
     animation:
       fade-in 0.3s ease 0.5s forwards,
       show-type-1 0.6s ease 0.5s forwards;
   }
   .effect-type-2 {
     animation: rotate360 4s ease 0.6s forwards;
-    div:after {
+    div::after {
       animation:
         fade-in 0.3s ease 1.1s forwards,
         show-type-2 0.6s ease 1.1s forwards;
     }
   }
-  .effect-type-3 div:after {
+  .effect-type-3 div::after {
     animation:
       fade-in 0.3s ease 1.7s forwards,
       show-type-3 0.6s ease 1.7s forwards;
   }
+  /* stylelint-enable no-duplicate-selectors */
 
   /* keyframes */
   @keyframes hidden-ball {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.4); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
     100% { transform: scale(0); }
   }
+
   @keyframes show-type-1 {
     from { transform: translateY(130px); }
     to { transform: translateY(-75px); }
   }
+
   @keyframes show-type-2 {
     from { transform: translateY(170px); }
     to { transform: translateY(-40px); }
   }
+
   @keyframes show-type-3 {
     from { transform: translateY(150px) rotate(0deg); }
     to { transform: translateY(-40px) rotate(270deg); }
@@ -281,6 +286,7 @@ export default {
     from { opacity: 0; }
     to { opacity: 1; }
   }
+
   @keyframes rotate360 {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }

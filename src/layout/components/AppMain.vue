@@ -34,7 +34,8 @@ export default {
 
 <style scoped>
 .app-main {
-  /*50 = navbar   calc(100vh - 50px); */
+  /* 50 = navbar   calc(100vh - 50px); */
+
   /* min-height: 100vh; */
   position: relative;
   width: 100%;
@@ -43,14 +44,17 @@ export default {
   padding: 20px;
   overflow: auto;
 }
-/* .fixed-header+.app-main {
+
+/*
+.fixed-header+.app-main {
   padding-top: 50px;
-} */
+}
+*/
 
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .fade-transform-enter {

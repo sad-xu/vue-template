@@ -22,7 +22,7 @@
           <el-dropdown-item>Home2</el-dropdown-item>
           <el-dropdown-item>Home3</el-dropdown-item>
           <el-dropdown-item divided>
-            <span style="display:block;" @click="logout">Log Out</span>
+            <span style="display: block;" @click="logout">Log Out</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -63,15 +63,15 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .hamburger {
     float: left;
     width: 40px;
     height: 100%;
     padding: 0 10px;
     cursor: pointer;
-    transition: transform .3s;
-    -webkit-tap-highlight-color:transparent;
+    transition: transform 0.3s;
+    -webkit-tap-highlight-color: transparent;
   }
   .hamburger-active {
     transform: rotate(90deg);
@@ -93,9 +93,9 @@ export default {
       vertical-align: text-bottom;
       &.hover-effect {
         cursor: pointer;
-        transition: background .3s;
+        transition: background 0.3s;
         &:hover {
-          background: rgba(0, 0, 0, .025)
+          background: rgba(0, 0, 0, 0.025);
         }
       }
     }

@@ -8,6 +8,18 @@
 
 `npm install`
 
+## VSCode 相关
+
+必装插件 `Vetur`、`ESLint`、`stylelint`
+
+```json
+// 保存时自动修复
+"editor.codeActionsOnSave": {
+  "source.fixAll.eslint": true,
+  "source.fixAll.stylelint": true
+}
+```
+
 ## 技术栈
 
 基于 `Vue CLI 3`
@@ -33,6 +45,8 @@
 * 打包生成分析报告（可选）
 
 * 集成 `standard` + `eslint-plugin-vue` 代码规范
+
+* 使用 `stylelint` 规范 `css` 代码
 
 * 全局样式变量 `variabless.scss`
 
