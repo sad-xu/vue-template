@@ -53,16 +53,16 @@ import {
   // OptionGroup,
   // ButtonGroup,
   Table,
-  TableColumn
+  TableColumn,
   // DatePicker,
   // TimeSelect,
   // TimePicker,
   // Popover,
-  // Tooltip,
+  Tooltip,
   // Form,
   // FormItem,
-  // Tabs,
-  // TabPane,
+  Tabs,
+  TabPane
   // Tag,
   // Tree,
   // Alert,
@@ -116,6 +116,9 @@ Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Tooltip)
 
 Vue.use(Loading.directive)
 

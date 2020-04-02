@@ -1,101 +1,67 @@
 <template>
-  <div class="exp1">
-    <p>Export Test</p>
-    <el-button v-log="'loading'" @click="loading">
-      Loading
-    </el-button>
-    <el-button
-      v-if="hasPermission('EXPORT_IMG')"
-      v-log="{ action: 'export img' }"
-      @click="doExportImg">
-      Export To Img
-    </el-button>
-    <el-button
-      v-if="hasPermission('EXPORT_PDF')"
-      v-log="{ action: 'export pdf' }"
-      @click="doExportPDF">
-      Export To PDF
-    </el-button>
-    <el-button
-      v-if="hasPermission('EXPORT_EXCEL')"
-      v-log="{ action: 'export excel' }"
-      @click="doExportExcel">
-      Export To Excel
-    </el-button>
-    <el-button @click="addLog">
-      add a log
-    </el-button>
-    <el-table
-      id="page-1" v-el-table-infinite-scroll="loadMore"
-      :data="tableList" height="300"
-      :infinite-scroll-distance="100" :infinite-scroll-immediate="false">
-      <el-table-column prop="a"></el-table-column>
-      <el-table-column prop="b"></el-table-column>
-      <el-table-column prop="c"></el-table-column>
-    </el-table>
-    <div id="page-2">
-      222点点滴滴
+  <div>
+    <div class="header">
+      <h1>Export Test</h1>
+      <div class="menu">
+        <el-tooltip content="最短全局loading">
+          <el-button v-log="'loading'" @click="loading">
+            Loading
+          </el-button>
+        </el-tooltip>
+        <el-tooltip content="手动增加埋点信息">
+          <el-button @click="addLog">
+            add a log
+          </el-button>
+        </el-tooltip>
+      </div>
+      <p class="tip">
+        <i class="el-icon-warning-outline"></i>
+        绿色边框表示该节点已被声明式埋点
+      </p>
     </div>
-    <div id="page-3">
-      333呃呃呃
-    </div>
+    <el-tabs v-model="activeTabIndex" class="tabs">
+      <el-tab-pane
+        v-for="(item, index) in tabList" :key="item.label"
+        :name="`${index}`">
+        <div slot="label" class="tab-label">
+          <svg-icon class="icon" :icon-class="item.icon"></svg-icon>
+          {{ item.label }}
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+
+    <component :is="comp"></component>
   </div>
 </template>
 
 <script>
-import { exportImg, exportPDF, exportExcel } from '@/utils/export'
 
 export default {
   name: 'ExportTest',
   data() {
     return {
-      tableList: [
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 }
+      comp: null,
+      activeTabIndex: '0',
+      tabList: [
+        { label: '网页截图-基础版', path: './comps/ImgTest-1.vue', icon: 'shuye-4' },
+        { label: '网页截图-升级版', path: './comps/ImgTest-2.vue', icon: 'shuye-5' },
+        { label: '导出pdf', path: './comps/PdfTest.vue', icon: 'shuye-6' },
+        { label: '导出Excel', path: './comps/ExcelTest.vue', icon: 'shuye-2' }
       ]
+    }
+  },
+  watch: {
+    activeTabIndex: {
+      handler(i) {
+        this.comp = require(`${this.tabList[i].path}`).default
+      },
+      immediate: true
     }
   },
   methods: {
     loading() {
       this.$showLoading()
       this.$hideLoading()
-    },
-    doExportImg() {
-      exportImg({
-        el: this.$el,
-        name: 'img'
-      })
-    },
-    doExportPDF() {
-      let idList = ['#page-1', '#page-2', '#page-3']
-      exportPDF({
-        name: 'pdf',
-        elList: idList.map(id => this.$el.querySelector(id))
-      })
-    },
-    doExportExcel() {
-      exportExcel({
-        filename: 'aaa',
-        data: [['a', 'b', 'c'], [1, 2, 3], [4, 5, 6]]
-      })
-    },
-    loadMore() {
-      console.log('load')
-      this.tableList = this.tableList.concat([
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 },
-        { a: 1, b: 2, c: 3 }
-      ])
     },
     addLog() {
       this.$tracker.addLog('add one log')
@@ -106,16 +72,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .exp1 {
-    font-size: 40px;
-    font-weight: bold;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+    h1 {
+      font-size: 40px;
+    }
+    .menu button {
+      margin-left: 30px;
+    }
+    .tip {
+      position: absolute;
+      bottom: -100%;
+      right: 0;
+      font-size: 12px;
+      color: #bdbdbd;
+    }
   }
 
-  #page-2,
-  #page-3 {
-    height: 300px;
+  .tab-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+    .icon {
+      font-size: 20px;
+      margin-right: 10px;
+    }
   }
-  #page-2 {
-    background-color: pink;
-  }
+
 </style>
