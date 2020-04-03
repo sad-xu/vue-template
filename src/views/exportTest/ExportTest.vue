@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <div class="header">
       <h1>Export Test</h1>
       <div class="menu">
@@ -30,7 +30,7 @@
       </el-tab-pane>
     </el-tabs>
 
-    <component :is="comp"></component>
+    <component :is="comp" class="comp"></component>
   </div>
 </template>
 
@@ -102,6 +102,11 @@ export default {
       font-size: 20px;
       margin-right: 10px;
     }
+  }
+
+  .comp {
+    height: calc(100% - 100px);
+    overflow: auto;
   }
 
 </style>
