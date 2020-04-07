@@ -26,6 +26,16 @@ export function exportImg(option) {
   }, 100)
 }
 
+/**
+ * 导出图片 - 2
+ * 无loading + Promise包装
+ */
+export function exportImg2(option) {
+  return import('./img.js').then(exportFn => {
+    return exportFn.exportHTMLToImg(option)
+  })
+}
+
 // 导出PDF
 export function exportPDF(option) {
   showLoading()

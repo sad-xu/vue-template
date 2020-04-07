@@ -5,11 +5,14 @@ export function exportHTMLToImg({
   el,
   name = 'example'
 }) {
-  html2canvas(el, {
-    logging: false
-  }).then(canvas => {
-    canvas.toBlob(blob => {
-      saveAs(blob, `${name}.png`)
-    })
+  return new Promise((resolve, reject) => {
+    html2canvas(el, {
+      logging: false
+    }).then(canvas => {
+      canvas.toBlob(blob => {
+        saveAs(blob, `${name}.png`)
+        resolve(blob)
+      })
+    }).catch(err => reject(err))
   })
 }

@@ -60,6 +60,8 @@
 
 * 埋点 `tracker.js` 路由 + 操作
 
+* Highcharts 自动销毁功能，防止内存泄露
+
 ## 实验室
 
 * CSS 动画
@@ -74,9 +76,7 @@
 
 ## TODO
 
-* 虚假截图
-
-* 代码美化插件
+* 虚假截图  Tip: 1.DPI分辨率 2.图表动画影响
 
 * infiniti-scroll unbind 报错
 

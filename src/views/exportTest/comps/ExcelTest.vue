@@ -1,16 +1,25 @@
 <template>
   <div>
-    <el-button
-      v-if="hasPermission('EXPORT_EXCEL')"
-      v-log="{ action: 'export excel' }"
-      @click="doExportExcel">
-      Export To Excel
-    </el-button>
+    <p class="header">
+      <el-button
+        v-if="hasPermission('EXPORT_EXCEL')"
+        v-log="{ action: 'export excel' }"
+        @click="doExportExcel">
+        Export To Excel
+      </el-button>
+    </p>
     <table class="table">
       <tr
         v-for="(row, rowIndex) in tableData" :key="rowIndex"
         :class="rowIndex === 0 ? 'bold' : ''">
-        <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+        <td
+          v-for="(cell, cellIndex) in row" :key="cellIndex"
+          :rowspan="rowIndex === 2 && cellIndex === 2 ? 2 : false"
+          :colspan="rowIndex === 2 && cellIndex === 2 ? 2 : false"
+          :style="
+            (rowIndex === 2 && cellIndex === 3) ||
+              (rowIndex === 3 && cellIndex === 2) ||
+              (rowIndex === 3 && cellIndex === 3) ? 'display: none;' : ''">
           {{ cell }}
         </td>
       </tr>
@@ -44,13 +53,12 @@ export default {
         name: 'excel-test',
         data: this.tableData,
         bold: Array.from({ length: 10 }).map((item, index) => [0, index]),
-        merge: [
-          [[5, 1], [6, 2]],
-          [[5, 7], [6, 8]]
-        ],
         border: [
-          [[1, 1], [2, 2]],
-          [[3, 2], [4, 5]]
+          [[0, 0], [9, 0]],
+          [[0, 0], [0, 9]]
+        ],
+        merge: [
+          [[2, 2], [3, 3]]
         ]
       })
     }
@@ -59,6 +67,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .header {
+    text-align: center;
+  }
+
   .table {
     border-collapse: collapse;
     border: 1px solid #eee;
@@ -67,6 +79,28 @@ export default {
     td {
       padding: 10px;
       border: 1px solid #eee;
+      text-align: center;
+    }
+    tr {
+      & > :first-child {
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+      }
+      &:first-of-type > :first-child {
+        border-top: 1px solid #000;
+      }
+      &:last-of-type > :first-child {
+        border-bottom: 1px solid #000;
+      }
+      &:first-of-type {
+        > td {
+          border-top: 1px solid #000;
+          border-bottom: 1px solid #000;
+        }
+        > td:last-of-type {
+          border-right: 1px solid #000;
+        }
+      }
     }
   }
 

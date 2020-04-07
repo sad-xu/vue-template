@@ -107,6 +107,7 @@ export default {
   .comp {
     height: calc(100% - 100px);
     overflow: auto;
+    padding-top: 10px;
   }
 
 </style>

@@ -17,11 +17,19 @@
 
 <script>
 import { exportImg } from '@/utils/export'
-import Highcharts from 'highcharts'
+import Highcharts from '@/utils/highcharts'
 require('highcharts/modules/sankey')(Highcharts)
 require('highcharts/modules/dependency-wheel')(Highcharts)
 
 export default {
+  data() {
+    return {
+      // chartList: []
+    }
+  },
+  // beforeDestroy() {
+  //   this.chartList.forEach(chart => chart.destroy())
+  // },
   mounted() {
     this.$nextTick(() => {
       this.initChart()
@@ -35,7 +43,9 @@ export default {
       })
     },
     initChart() {
+      const that = this
       Highcharts.chart(this.$el.querySelector('#chart'), {
+        _uid: that._uid,
         title: {
           text: null
         },
@@ -103,6 +113,8 @@ export default {
           },
           size: '95%'
         }]
+      }, chart => {
+        // this.chartList = Object.freeze([chart])
       })
     }
   }
