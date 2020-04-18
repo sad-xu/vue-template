@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas'
-import { saveAs } from 'file-saver'
+// import { saveAs } from 'file-saver'
 
 export function exportHTMLToImg({
   el,
@@ -10,7 +10,7 @@ export function exportHTMLToImg({
       logging: false
     }).then(canvas => {
       canvas.toBlob(blob => {
-        saveAs(blob, `${name}.png`)
+        // saveAs(blob, `${name}.png`)
         resolve(blob)
       })
     }).catch(err => reject(err))

@@ -40,7 +40,6 @@ export default {
         // 结束
         p.finally(() => {
           this.openWrapper = false
-          // 无需通知父组件销毁图标，已有自动销毁功能
         })
       })
     }
