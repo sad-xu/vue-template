@@ -29,8 +29,14 @@
         <p class="tip">
           v-model: Number 绑定值
         </p>
+        <p class="tip">
+          digits: Number 小数部分最大位数 默认 2
+        </p>
+        <p class="tip">
+          intLength: Number 整数部分最大位数 默认 9
+        </p>
         <div class="input">
-          <ez-input-float v-model="floatVal"></ez-input-float>
+          <ez-input-float v-model="floatVal" :digits="3"></ez-input-float>
         </div>
       </div>
     </div>
@@ -50,7 +56,7 @@ export default {
   data() {
     return {
       intVal: 3,
-      floatVal: -3.2
+      floatVal: 2.3
     }
   }
 }
