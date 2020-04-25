@@ -50,7 +50,6 @@ export default {
   methods: {
     handlePress(e) {
       this.lastVal = e.target.value || this.lastVal
-      console.log(e.target.value)
       // 只允许输入 0-9 .  -
       if (!/[\d-.]/.exec(e.key)) {
         e.preventDefault()

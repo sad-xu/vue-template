@@ -1,8 +1,9 @@
 <template>
   <label class="ez-input-label">
     <span class="ez-text">{{ value | formatNum }}</span>
+    <!-- type="number" -->
     <input
-      :value="value" type="number"
+      :value="value" type="tel"
       class="ez-input" :class="hideInput ? 'ez-input_hide' : ''"
       @keypress="handlePress" @input="handleInput"
       @focus="handleFocus" @blur="handleBlur">
@@ -40,10 +41,11 @@ export default {
   methods: {
     handlePress(e) {
       // 剔除非法输入
+      // pad 上 type="number" 只会弹出数字键盘，不会限制输入
       let key = e.key
       if (
-        key === 'e' || key === '.' ||
-        key === '-' || key === '+' ||
+        // 手动限制只允许输入 0 - 9
+        !(/[\d]/.exec(key)) ||
         e.target.value.length >= this.maxLength
       ) {
         e.preventDefault()

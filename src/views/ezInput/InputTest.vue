@@ -36,7 +36,7 @@
           intLength: Number 整数部分最大位数 默认 9
         </p>
         <div class="input">
-          <ez-input-float v-model="floatVal" :digits="3"></ez-input-float>
+          <ez-input-float v-model="floatVal"></ez-input-float>
         </div>
       </div>
     </div>
