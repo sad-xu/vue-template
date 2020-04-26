@@ -32,5 +32,8 @@ export default {
       el[elScope] = scrollElem[elScope]
     }, 0)
   },
-  unbind: elUnbind
+  // fix: #1 Cannot read property 'container' of undefined
+  unbind: function(el) {
+    elUnbind(el.querySelector('.el-table__body-wrapper'))
+  }
 }
