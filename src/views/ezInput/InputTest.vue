@@ -40,6 +40,27 @@
         </div>
       </div>
     </div>
+    <!--  -->
+    <div>
+      <p>test select</p>
+      <select v-model="year">
+        <option
+          v-for="n in 100" :key="n"
+          :selected="year === n + 2020"
+          :value="n + 2020">
+          {{ n + 2020 }}
+        </option>
+      </select>
+      <p>test size</p>
+      <select v-model="year" size="8">
+        <option
+          v-for="n in 100" :key="n"
+          :selected="year === n + 2020"
+          :value="n + 2020">
+          {{ n + 2020 }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -56,7 +77,8 @@ export default {
   data() {
     return {
       intVal: 3,
-      floatVal: 2.3
+      floatVal: 2.3,
+      year: 2050
     }
   }
 }
