@@ -58,3 +58,32 @@ export function loadSrc(src) {
     } else resolve()
   })
 }
+
+/**
+ * 简易防抖
+ *
+ */
+export function debounce(fn, wait = 300) {
+  let timeId = null
+  return function(...args) {
+    window.clearTimeout(timeId)
+    timeId = window.setTimeout(() => {
+      fn.apply(this, args)
+    }, wait)
+  }
+}
+
+/**
+ * 简易节流
+ *
+ */
+export function throttle(fn, wait = 100) {
+  let timeId = null
+  return function(...args) {
+    if (timeId) return
+    timeId = window.setTimeout(() => {
+      fn.apply(this, args)
+      timeId = null
+    }, wait)
+  }
+}
