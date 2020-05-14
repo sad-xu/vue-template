@@ -56,6 +56,19 @@ const asyncRoutes = [
       component: () => import('@/views/cssStage/CssStage.vue')
     }]
   },
+  { // animate
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'animate',
+      name: 'Animate',
+      meta: {
+        title: 'Animate',
+        icon: 'shuzhi'
+      },
+      component: () => import('@/views/animate/Animate.vue')
+    }]
+  },
   { // 真实预览
     path: '/',
     component: Layout,
