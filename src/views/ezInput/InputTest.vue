@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Input Test</h1>
+    <h1>Input Test v0.4</h1>
     <div class="input-wrapper">
       <div class="input-item">
         <p class="title">
@@ -39,27 +39,6 @@
           <ez-input-float v-model="floatVal"></ez-input-float>
         </div>
       </div>
-    </div>
-    <!--  -->
-    <div>
-      <p>test select</p>
-      <select v-model="year">
-        <option
-          v-for="n in 100" :key="n"
-          :selected="year === n + 2020"
-          :value="n + 2020">
-          {{ n + 2020 }}
-        </option>
-      </select>
-      <p>test size</p>
-      <select v-model="year" size="8">
-        <option
-          v-for="n in 100" :key="n"
-          :selected="year === n + 2020"
-          :value="n + 2020">
-          {{ n + 2020 }}
-        </option>
-      </select>
     </div>
   </div>
 </template>

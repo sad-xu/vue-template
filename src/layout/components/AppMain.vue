@@ -22,7 +22,7 @@ export default {
   watch: {
     $route: {
       handler(route) {
-        if (route.name) {
+        if (route.name && route.meta && route.meta.cache) {
           this.$store.dispatch('app/addCachedView', route)
         }
       },

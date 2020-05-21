@@ -18,9 +18,7 @@ const mutations = {
   },
   ADD_CACHED_VIEW: (state, view) => {
     if (state.cachedViews.includes(view.name)) return
-    if (view.meta.cache) {
-      state.cachedViews.push(view.name)
-    }
+    state.cachedViews.push(view.name)
   },
   SET_SCREENSHOTTIME: state => {
     state.screenshotTime++
