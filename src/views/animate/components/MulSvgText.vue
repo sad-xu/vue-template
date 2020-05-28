@@ -26,13 +26,19 @@
 
 <script>
 import anime from '../animate'
+// 不同笔画的时间
+// case 1 手动赋值 if (i === 14) t += 2000  keyframes需要全局
+// case 2 getTotalLength
+
+// 原生实现 动画
+// anime.js 实现
 
 export default {
   name: 'MulSvgText',
   mounted() {
     this.$nextTick(() => {
-      // this.useAnime()
-      this.justNative()
+      this.useAnime()
+      // this.justNative()
     })
   },
   methods: {
@@ -51,14 +57,11 @@ export default {
         delayList.push(t += lastT)
         lastT = len
       }
-      console.log(durationList, delayList)
       for (let i = 0; i < pathList.length; i++) {
-        pathList[i].setAttribute('style', `animation: dash ${durationList[i]}ms ${delayList[i]}ms forwards;`)
+        pathList[i].setAttribute('style', `animation: dash-for-mul-svg-text ${durationList[i]}ms linear ${delayList[i]}ms forwards;`)
       }
     },
     useAnime() {
-      // case 1 手动赋值 if (i === 14) t += 2000
-      // case 2 getTotalLength
       function durationTime(el, i) {
         // if (i === 13) return 2000
         // else return 500
@@ -80,6 +83,7 @@ export default {
         targets: this.$el.querySelectorAll('path'),
         easing: 'easeInOutQuad',
         loop: true,
+        endDelay: 1000,
         strokeDashoffset: [anime.setDashoffset, 0],
         duration: durationTime,
         delay: delayTime()
@@ -89,12 +93,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  // path {
-  //   animation: dash 2s infinite;
-  // }
-
-  @keyframes dash {
+<style lang="scss">
+  @keyframes dash-for-mul-svg-text {
     to {
       stroke-dashoffset: 0;
     }

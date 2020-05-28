@@ -59,6 +59,41 @@ export function loadSrc(src) {
   })
 }
 
+// 获取本地图片数据
+export function getLocalImgData(url) {
+  const img = new Image()
+  img.onload = function() {
+    let imgData
+    if (this.src.slice(0, 4) === 'data') {
+      // 小图片直接拿到 base64
+      imgData = this.src
+    } else {
+      // 大图片需要 canvas 转换
+      let canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      canvas.height = this.height
+      canvas.width = this.width
+      ctx.drawImage(this, 0, 0)
+      imgData = canvas.toDataURL('image/png')
+    }
+    // base64 --> blob
+    let arr = imgData.split(',')
+    let mime = arr[0].match(/:(.*?);/)[1]
+    let bstr = atob(arr[1])
+    let n = bstr.length
+    let u8arr = new Uint8Array(n)
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n)
+    }
+    const blob = new Blob([u8arr], {
+      type: mime
+    })
+    // do request
+    console.log(blob)
+  }
+  img.src = require(url)
+}
+
 /**
  * 简易防抖
  *
