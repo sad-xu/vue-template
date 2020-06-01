@@ -128,11 +128,24 @@ const asyncRoutes = [
     children: [{
       path: 'ez-input',
       meta: {
-        title: 'Ez Input',
+        title: 'Ez Input(废弃)',
         icon: 'shuye-3',
         cache: true
       },
       component: () => import('@/views/ezInput/InputTest.vue')
+    }]
+  },
+  { // uiLang
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'ul-lang',
+      name: 'UILang',
+      meta: {
+        title: 'UI-Lang',
+        icon: 'shuye-6'
+      },
+      component: () => import('@/views/uiLang/UILang.vue')
     }]
   },
 
