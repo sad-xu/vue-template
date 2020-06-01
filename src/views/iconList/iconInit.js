@@ -1,3 +1,5 @@
+// *已废弃* 通过 node 遍历icon文件名 写入iconList.vue
+
 const fs = require('fs')
 const path = require('path')
 
