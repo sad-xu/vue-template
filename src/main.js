@@ -32,72 +32,7 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Scrollbar,
-  Loading,
-  // MessageBox,
-  // Message,
-  // Notification
-  // MenuItemGroup,
-  // Pagination,
-  // Autocomplete,
-  // InputNumber,
-  // Radio,
-  // RadioGroup,
-  // RadioButton,
-  // Checkbox,
-  // CheckboxButton,
-  // CheckboxGroup,
-  // Switch,
-  // Select,
-  // Option,
-  // OptionGroup,
-  // ButtonGroup,
-  Table,
-  TableColumn,
-  // DatePicker,
-  // TimeSelect,
-  // TimePicker,
-  // Popover,
-  Tooltip,
-  // Form,
-  // FormItem,
-  Tabs,
-  TabPane
-  // Tag,
-  // Tree,
-  // Alert,
-  // Slider,
-  // Icon,
-  // Row,
-  // Col,
-  // Upload,
-  // Progress,
-  // Spinner,
-  // Badge,
-  // Card,
-  // Rate,
-  // Steps,
-  // Step,
-  // Carousel,
-  // CarouselItem,
-  // Collapse,
-  // CollapseItem,
-  // Cascader,
-  // ColorPicker,
-  // Transfer,
-  // Container,
-  // Header,
-  // Aside,
-  // Main,
-  // Footer,
-  // Timeline,
-  // TimelineItem,
-  // Link,
-  // Divider,
-  // Image,
-  // Calendar,
-  // Backtop,
-  // PageHeader,
-  // CascaderPanel,
+  Loading
 } from 'element-ui'
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 2000 }
@@ -113,11 +48,6 @@ Vue.use(MenuItem)
 Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(Tabs)
-Vue.use(TabPane)
-Vue.use(Tooltip)
 
 Vue.use(Loading.directive)
 

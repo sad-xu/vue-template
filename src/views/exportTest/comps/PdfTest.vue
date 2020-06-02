@@ -29,11 +29,17 @@
 </template>
 
 <script>
+import { Table, TableColumn } from 'element-ui'
 import { exportPDF } from '@/utils/export'
 import Highcharts from '@/utils/highcharts'
 require('highcharts/modules/item-series')(Highcharts)
 
 export default {
+  name: 'PdfTest',
+  components: {
+    ElTable: Table,
+    ElTableColumn: TableColumn
+  },
   data() {
     return {
       // chartList: [],

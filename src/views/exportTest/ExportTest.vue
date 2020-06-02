@@ -35,9 +35,15 @@
 </template>
 
 <script>
+import { Tabs, TabPane, Tooltip } from 'element-ui'
 
 export default {
   name: 'ExportTest',
+  components: {
+    ElTabs: Tabs,
+    ElTabPane: TabPane,
+    ElTooltip: Tooltip
+  },
   data() {
     return {
       comp: null,
