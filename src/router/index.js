@@ -135,19 +135,6 @@ const asyncRoutes = [
       component: () => import('@/views/ezInput/InputTest.vue')
     }]
   },
-  { // uiLang
-    path: '/',
-    component: Layout,
-    children: [{
-      path: 'ul-lang',
-      name: 'UILang',
-      meta: {
-        title: 'UI-Lang',
-        icon: 'shuye-6'
-      },
-      component: () => import('@/views/uiLang/UILang.vue')
-    }]
-  },
 
   {
     hidden: true,
