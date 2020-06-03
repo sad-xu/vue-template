@@ -135,6 +135,18 @@ const asyncRoutes = [
       component: () => import('@/views/ezInput/InputTest.vue')
     }]
   },
+  { // 手绘风注释
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'notation',
+      meta: {
+        title: 'Notation',
+        icon: 'shuye-6'
+      },
+      component: () => import('@/views/notation/Notation.vue')
+    }]
+  },
 
   {
     hidden: true,
