@@ -20,7 +20,7 @@ export default {
     this.$nextTick(() => {
       let a = new Annotate(this.$el.querySelector('.title'))
       console.log(a)
-      // a.show()
+      a.show()
     })
   }
   // methods: {
