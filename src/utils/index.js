@@ -91,7 +91,7 @@ export function getLocalImgData(url) {
     // do request
     console.log(blob)
   }
-  img.src = require(url)
+  img.src = require(`${url}`)
 }
 
 /**

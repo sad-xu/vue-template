@@ -1,6 +1,7 @@
 const path = require('path')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+const { chalk } = require('@vue/cli-shared-utils')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const isDev = process.env.NODE_ENV !== 'production'
@@ -43,7 +44,18 @@ module.exports = {
   configureWebpack: config => {
     let plugins = []
     if (isDev) {
-
+      // 开发环境 自定义追加打印内容
+      plugins = [
+        (function() {
+          function PrintText() {}
+          PrintText.prototype.apply = compiler => {
+            compiler.plugin('done', () => {
+              console.log(`  ${chalk.bgWhiteBright.blue.bold(' vue-template ')}`)
+            })
+          }
+          return new PrintText()
+        })()
+      ]
     } else {
       plugins = [
         // 去除console

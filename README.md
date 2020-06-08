@@ -44,6 +44,8 @@
 
 * 打包生成分析报告（可选）
 
+* 开发环境命令行追加自定义打印内容 `configureWebpack-dev-plugins`
+
 * 集成 `standard` + `eslint-plugin-vue` 代码规范
 
 * 使用 `stylelint` 规范 `css` 代码
@@ -60,7 +62,9 @@
 
 * 埋点 `tracker.js` 路由 + 操作
 
-* Highcharts 自动销毁功能，防止内存泄露
+* Highcharts 自动销毁功能，防止内存泄露、
+
+* 获取项目中图片的二进制数据 `utils/index.js - getLocalImgData`
 
 ## 实验室
 
