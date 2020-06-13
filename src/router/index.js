@@ -147,6 +147,18 @@ const asyncRoutes = [
       component: () => import('@/views/notation/Notation.vue')
     }]
   },
+  { // 音频
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'audio',
+      meta: {
+        title: 'Audio',
+        icon: 'shucong'
+      },
+      component: () => import('@/views/audio/Audio.vue')
+    }]
+  },
 
   {
     hidden: true,

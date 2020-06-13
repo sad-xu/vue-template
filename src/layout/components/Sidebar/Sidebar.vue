@@ -18,12 +18,14 @@
 </template>
 
 <script>
+import { Scrollbar } from 'element-ui'
 import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 
 export default {
   components: {
+    ElScrollbar: Scrollbar,
     SidebarItem,
     Logo
   },

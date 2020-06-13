@@ -31,7 +31,6 @@ import {
   Button,
   Breadcrumb,
   BreadcrumbItem,
-  Scrollbar,
   Loading
 } from 'element-ui'
 
@@ -45,7 +44,6 @@ Vue.use(DropdownItem)
 Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(MenuItem)
-Vue.use(Scrollbar)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
 
