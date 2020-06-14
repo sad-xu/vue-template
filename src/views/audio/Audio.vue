@@ -19,6 +19,10 @@
     <el-button @click="togglePlay">
       {{ isPlaying ? 'STOP' : 'PLAY' }}
     </el-button>
+    <!--  -->
+    <input id="thefile" type="file" accept="audio/*">
+    <canvas id="canvas"></canvas>
+    <audio id="audio" controls></audio>
   </div>
 </template>
 
@@ -50,8 +54,19 @@ export default {
       // 频率
       frequency: 440,
       // 音量 百分比
-      volume: 20
+      volume: 20,
+      //
+      ctx: null
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      var canvas = this.$el.querySelector('#canvas')
+      canvas.width = 600
+      canvas.height = 300
+      this.ctx = canvas.getContext('2d')
+      this.init()
+    })
   },
   methods: {
     changeWave(wave) {
@@ -72,25 +87,103 @@ export default {
           frequency: this.frequency,
           volume: this.volume / 100
         })
+        let dataArray = new Uint8Array(this.sound.analyser.frequencyBinCount)
+        this.draw(this.sound.analyser, dataArray)
       }
       this.isPlaying = !this.isPlaying
     },
-    fourier() {
-      var audioContext = new AudioContext()
-      var osc = audioContext.createOscillator()
+    // fourier() {
+    //   var audioContext = new AudioContext()
+    //   var osc = audioContext.createOscillator()
 
-      var real = new Float32Array([0, 0.4, 0.4, 1, 1, 1, 0.3, 0.7, 0.6, 0.5, 0.9, 0.8])
+    //   var real = new Float32Array([0, 0.4, 0.4, 1, 1, 1, 0.3, 0.7, 0.6, 0.5, 0.9, 0.8])
 
-      var imag = new Float32Array(real.length)
-      var hornTable = audioContext.createPeriodicWave(real, imag)
+    //   var imag = new Float32Array(real.length)
+    //   var hornTable = audioContext.createPeriodicWave(real, imag)
 
-      osc = audioContext.createOscillator()
-      osc.setPeriodicWave(hornTable)
-      osc.frequency.value = 160
-      osc.connect(audioContext.destination)
-      osc.start(0)
+    //   osc.setPeriodicWave(hornTable)
+    //   osc.frequency.value = 160
+    //   osc.connect(audioContext.destination)
+    //   osc.start(0)
+    // }
+    init() {
+      const that = this
+      var file = this.$el.querySelector('#thefile')
+      var audio = this.$el.querySelector('#audio')
+
+      file.onchange = function() {
+        var files = this.files
+        audio.src = URL.createObjectURL(files[0])
+        audio.load()
+        audio.play()
+
+        var context = new AudioContext()
+        var src = context.createMediaElementSource(audio)
+        const gainNode = context.createGain()
+        var analyser = context.createAnalyser()
+        gainNode.gain.setValueAtTime(0.1, context.currentTime)
+        // var biquadFilter = context.createBiquadFilter()
+        // biquadFilter.type = 'lowpass'
+        // biquadFilter.frequency.value = 1000
+        // biquadFilter.gain.value = 25
+
+        src.connect(gainNode)
+        gainNode.connect(analyser)
+        analyser.connect(context.destination)
+
+        analyser.fftSize = 256
+
+        var bufferLength = analyser.frequencyBinCount
+
+        var dataArray = new Uint8Array(bufferLength)
+
+        audio.play()
+        that.draw(analyser, dataArray)
+      }
+    },
+    draw(analyser, dataArray) {
+      const that = this
+      requestAnimationFrame(function() {
+        that.draw(analyser, dataArray)
+      })
+      let ctx = this.ctx
+      let x = 0
+      const WIDTH = 600
+      const HEIGHT = 300
+      let bufferLength = dataArray.length
+      let barWidth = (WIDTH / bufferLength) * 2.5
+      let barHeight
+      analyser.getByteFrequencyData(dataArray)
+
+      ctx.fillStyle = '#000'
+      ctx.fillRect(0, 0, WIDTH, HEIGHT)
+
+      for (var i = 0; i < bufferLength; i++) {
+        barHeight = dataArray[i]
+
+        var r = barHeight + (25 * (i / bufferLength))
+        var g = 250 * (i / bufferLength)
+        var b = 50
+
+        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'
+        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
+
+        x += barWidth + 1
+      }
     }
-
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#thefile {
+}
+
+#canvas {
+  width: 600px;
+  height: 300px;
+}
+
+audio {
+}
+</style>
