@@ -29,6 +29,7 @@
 <script>
 import { Select, Option, Slider } from 'element-ui'
 import Sound from './Sound'
+
 /**
  * TODO:
  *  获取外部音频，拿到频率数据
@@ -37,6 +38,7 @@ import Sound from './Sound'
  *  做出电音蝌蚪SVG
  *
  */
+
 export default {
   name: 'Audio',
   components: {
@@ -52,11 +54,14 @@ export default {
       wave: 'sine',
       waveOptions: ['sine', 'square', 'triangle', 'sawtooth'],
       // 频率
-      frequency: 440,
+      frequency: 400,
       // 音量 百分比
       volume: 20,
       //
-      ctx: null
+      ctx: null,
+      // requestAnimationFrame id
+      frameId: null,
+      newSound: new Sound()
     }
   },
   mounted() {
@@ -81,6 +86,7 @@ export default {
     togglePlay() {
       if (this.isPlaying) {
         this.sound.stop()
+        cancelAnimationFrame(this.frameId)
       } else {
         this.sound.play({
           wave: this.wave,
@@ -143,7 +149,7 @@ export default {
     },
     draw(analyser, dataArray) {
       const that = this
-      requestAnimationFrame(function() {
+      this.frameId = requestAnimationFrame(function() {
         that.draw(analyser, dataArray)
       })
       let ctx = this.ctx
@@ -154,6 +160,21 @@ export default {
       let barWidth = (WIDTH / bufferLength) * 2.5
       let barHeight
       analyser.getByteFrequencyData(dataArray)
+
+      let max = Math.max.apply(Math, dataArray)
+      if (max > 10) {
+        let indexNum = 0
+        for (let i = 0; i < dataArray.length; i++) {
+          if (dataArray[i] === max) {
+            indexNum = i + 1
+            break
+          }
+        }
+        let freq = indexNum * this.sound.context.sampleRate / dataArray.length / 2
+        console.log(freq)
+        // 声源2
+        this.newSound.setFrequency(freq)
+      }
 
       ctx.fillStyle = '#000'
       ctx.fillRect(0, 0, WIDTH, HEIGHT)
