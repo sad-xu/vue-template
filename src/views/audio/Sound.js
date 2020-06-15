@@ -12,7 +12,22 @@ class Sound {
     const gainNode = context.createGain()
     const analyser = context.createAnalyser()
 
-    analyser.fftSize = 2048 // FFT 窗口大小
+    analyser.fftSize = 1024 // 2048 // FFT 窗口大小
+
+    // 自定义音色
+    let diyWave = context.createPeriodicWave(
+      // real 实部 cos [直流偏移, 基频, 泛音...] a
+      new Float32Array([
+        0, 0, -0.2, 0.5, -0.4, 0.137, -0.104, 0.115965, -0.004413, 0.067884,
+        -0.008880, 0.079300, -0.038756, 0.011882, -0.030883, 0.027608, -0.013429, 0.003930, -0.014029, 0.009720
+      ]),
+      // imag 虚部 sin [0, 基频, 泛音...] b
+      new Float32Array([
+        0, 0.147621, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      ])
+    )
+    oscillator.setPeriodicWave(diyWave)
 
     oscillator.connect(gainNode)
     gainNode.connect(analyser)
@@ -26,7 +41,7 @@ class Sound {
     this.init()
 
     this.setFrequency(frequency)
-    this.setWave(wave)
+    // this.setWave(wave)
     this.setVolume(volume)
     this.oscillator.start()
   }

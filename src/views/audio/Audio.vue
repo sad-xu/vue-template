@@ -98,6 +98,11 @@ export default {
       }
       this.isPlaying = !this.isPlaying
     },
+    // x(t)=∑k=1L−1[a[k]cos2πkt+b[k]sin2πkt]
+    // https://github.com/GoogleChromeLabs/web-audio-samples/tree/gh-pages/samples/audio/wave-tables
+    // https://www.g200kg.com/jp/docs/webaudio/samples/test-osccustom.html
+    // https://webaudio.github.io/web-audio-api/#periodicwave
+
     // fourier() {
     //   var audioContext = new AudioContext()
     //   var osc = audioContext.createOscillator()
