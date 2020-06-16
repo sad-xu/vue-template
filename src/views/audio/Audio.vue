@@ -22,7 +22,7 @@
     <!--  -->
     <input id="thefile" type="file" accept="audio/*">
     <canvas id="canvas"></canvas>
-    <audio id="audio" controls></audio>
+    <audio id="audio" controls @pause="pauseAudio"></audio>
   </div>
 </template>
 
@@ -149,52 +149,68 @@ export default {
         var dataArray = new Uint8Array(bufferLength)
 
         audio.play()
+        that.newSound.play({
+          volume: 5 / 100
+        })
         that.draw(analyser, dataArray)
       }
+    },
+    // 暂停 audio
+    pauseAudio() {
+      cancelAnimationFrame(this.frameId)
     },
     draw(analyser, dataArray) {
       const that = this
       this.frameId = requestAnimationFrame(function() {
         that.draw(analyser, dataArray)
       })
-      let ctx = this.ctx
-      let x = 0
+      const ctx = this.ctx
       const WIDTH = 600
       const HEIGHT = 300
       let bufferLength = dataArray.length
       let barWidth = (WIDTH / bufferLength) * 2.5
-      let barHeight
       analyser.getByteFrequencyData(dataArray)
 
-      let max = Math.max.apply(Math, dataArray)
-      if (max > 10) {
-        let indexNum = 0
-        for (let i = 0; i < dataArray.length; i++) {
-          if (dataArray[i] === max) {
-            indexNum = i + 1
-            break
-          }
-        }
-        let freq = indexNum * this.sound.context.sampleRate / dataArray.length / 2
-        console.log(freq)
-        // 声源2
-        this.newSound.setFrequency(freq)
-      }
+      // let max = Math.max.apply(Math, dataArray)
+      // if (max > 10) {
+      //   let indexNum = 0
+      //   for (let i = 0; i < bufferLength; i++) {
+      //     if (dataArray[i] === max) {
+      //       indexNum = i + 1
+      //       break
+      //     }
+      //   }
+      //   let freq = indexNum * this.sound.context.sampleRate / bufferLength / 2
+      //   console.log(freq)
+      //   // 声源2
+      //   this.newSound.setFrequency(freq)
+      // }
+
+      // do, re, mi, fa, so, la, ti, do  261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.2
 
       ctx.fillStyle = '#000'
       ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
-      for (var i = 0; i < bufferLength; i++) {
-        barHeight = dataArray[i]
-
-        var r = barHeight + (25 * (i / bufferLength))
-        var g = 250 * (i / bufferLength)
-        var b = 50
-
-        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')'
+      let x = 0
+      let sum = 0
+      let num = 0
+      for (let i = 0; i < bufferLength; i++) {
+        let barHeight = dataArray[i]
+        ctx.fillStyle = `rgb(${barHeight + (25 * (i / bufferLength))}, ${250 * (i / bufferLength)}, 50`
         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
-
         x += barWidth + 1
+        sum += barHeight //
+      }
+      //
+      sum = sum / 2
+      for (let i = 0; i < bufferLength; i++) {
+        num += dataArray[i]
+        if (num >= sum) {
+          let freq = i * 18.7 - 93.3 //  * this.sound.context.sampleRate / bufferLength / 2
+          console.log(freq)
+          this.newSound.setFrequency(freq)
+          break
+        }
       }
     }
   }
