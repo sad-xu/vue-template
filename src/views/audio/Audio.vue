@@ -56,7 +56,7 @@ export default {
       // 频率
       frequency: 400,
       // 音量 百分比
-      volume: 20,
+      volume: 5,
       //
       ctx: null,
       // requestAnimationFrame id
@@ -133,16 +133,19 @@ export default {
         const gainNode = context.createGain()
         var analyser = context.createAnalyser()
         gainNode.gain.setValueAtTime(0.1, context.currentTime)
-        // var biquadFilter = context.createBiquadFilter()
+
+        // 滤波
+        // let biquadFilter = context.createBiquadFilter()
         // biquadFilter.type = 'lowpass'
         // biquadFilter.frequency.value = 1000
         // biquadFilter.gain.value = 25
 
         src.connect(gainNode)
+        // gainNode.connect(biquadFilter)
         gainNode.connect(analyser)
         analyser.connect(context.destination)
 
-        analyser.fftSize = 256
+        // analyser.fftSize = 256
 
         var bufferLength = analyser.frequencyBinCount
 
@@ -150,6 +153,7 @@ export default {
 
         audio.play()
         that.newSound.play({
+          wave: 'sine',
           volume: 5 / 100
         })
         that.draw(analyser, dataArray)
@@ -158,6 +162,7 @@ export default {
     // 暂停 audio
     pauseAudio() {
       cancelAnimationFrame(this.frameId)
+      this.newSound.stop()
     },
     draw(analyser, dataArray) {
       const that = this
@@ -192,26 +197,36 @@ export default {
       ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
       let x = 0
-      let sum = 0
-      let num = 0
+      let max = 0
+      let f = 0
       for (let i = 0; i < bufferLength; i++) {
         let barHeight = dataArray[i]
         ctx.fillStyle = `rgb(${barHeight + (25 * (i / bufferLength))}, ${250 * (i / bufferLength)}, 50`
         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
         x += barWidth + 1
-        sum += barHeight //
-      }
-      //
-      sum = sum / 2
-      for (let i = 0; i < bufferLength; i++) {
-        num += dataArray[i]
-        if (num >= sum) {
-          let freq = i * 18.7 - 93.3 //  * this.sound.context.sampleRate / bufferLength / 2
-          console.log(freq)
-          this.newSound.setFrequency(freq)
-          break
+        // 获取基频频率
+        if (i >= 10 && i <= 26) {
+          if (barHeight > max) {
+            max = barHeight
+            f = i
+          }
         }
       }
+      let freq = f * this.sound.context.sampleRate / bufferLength / 2
+      console.log(f, freq)
+      this.newSound.setFrequency(freq)
+      //
+      // sum = sum / 2
+      // for (let i = 0; i < bufferLength; i++) {
+      //   num += dataArray[i]
+      //   if (num >= sum) {
+      //     let freq = i * 19 - 80 //  * this.sound.context.sampleRate / bufferLength / 2
+      //     // let freq = i +
+      //     console.log(i, freq)
+      //     this.newSound.setFrequency(freq)
+      //     break
+      //   }
+      // }
     }
   }
 }
