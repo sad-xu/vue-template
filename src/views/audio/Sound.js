@@ -4,13 +4,20 @@ class Sound {
     this.oscillator = null
     this.gainNode = null
     this.analyser = null
-    this.init()
+    // this.init()
   }
   init() {
     const context = this.context
     const oscillator = context.createOscillator()
     const gainNode = context.createGain()
     const analyser = context.createAnalyser()
+
+    let filter = context.createBiquadFilter()
+    filter.type = 'lowpass'
+    filter.detune.value = 0
+    filter.frequency.value = 746
+    filter.Q.value = 0
+    filter.gain.value = 0
 
     analyser.fftSize = 1024 // 2048 // FFT 窗口大小
 
@@ -30,7 +37,8 @@ class Sound {
     // oscillator.setPeriodicWave(diyWave)
 
     oscillator.connect(gainNode)
-    gainNode.connect(analyser)
+    gainNode.connect(filter)
+    filter.connect(analyser)
     analyser.connect(context.destination)
 
     this.oscillator = oscillator
