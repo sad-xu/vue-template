@@ -1,7 +1,6 @@
 @import './variables.scss';
 @import './transition.scss';
 @import './element-ui.scss';
-@import './sidebar.scss';
 
 * {
   margin: 0;
@@ -81,4 +80,41 @@ div:focus {
     clear: both;
     height: 0;
   }
+}
+
+// 侧边栏收起后的提示框
+.sidebar-popper-submenu {
+  // & > .el-menu {
+  //   .svg-icon {
+  //     margin-right: 16px;
+  //   }
+  // }
+  // .nest-menu .el-submenu > .el-submenu__title,
+  background-image: linear-gradient(45deg, #780206, #061161);
+  .nest-menu {
+    border-bottom: 1px solid #e6ecf540;
+    &:last-of-type {
+      border-bottom: 0;
+    }
+    .el-menu-item {
+      &:hover {
+        background-color: rgba(200, 200, 200, 0.2) !important;
+      }
+    }
+  }
+
+  // > .el-menu {
+  //   max-height: 100vh;
+  //   overflow-y: auto;
+  //   &::-webkit-scrollbar-track-piece {
+  //     background: #d3dce6;
+  //   }
+  //   &::-webkit-scrollbar {
+  //     width: 6px;
+  //   }
+  //   &::-webkit-scrollbar-thumb {
+  //     background: #99a9bf;
+  //     border-radius: 20px;
+  //   }
+  // }
 }

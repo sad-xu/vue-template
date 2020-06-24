@@ -7,7 +7,9 @@
 </template>
 
 <script>
-import Annotate from './annotate'
+// import Annotate from './annotate'
+
+// import typical from '@/utils/typical'
 
 export default {
   name: 'Notation',
@@ -18,9 +20,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let a = new Annotate(this.$el.querySelector('.title'))
-      console.log(a)
-      a.show()
+      // let a = new Annotate(this.$el.querySelector('.title'))
+      // console.log(a)
+      // a.show()
+      // typical(this.$el, 'text', typical)
     })
   }
   // methods: {

@@ -80,9 +80,7 @@
 
 ## TODO
 
-* 虚假截图  Tip: 1.DPI分辨率 2.图表动画影响
-
-* infiniti-scroll unbind 报错
+风格参考 `https://pixinvent.com/demo/apex-react-redux-bootstrap-admin-dashboard-template/demo-1/analytics-dashboard`
 
 ## 项目结构
 
@@ -142,7 +140,6 @@
 │   ├── styles                          // CSS
 │   │   ├── element-ui.scss             // 覆盖 element-ui 自带样式
 │   │   ├── index.scss                  // 入口 与 全局样式
-│   │   ├── sidebar.scss                // 侧边栏样式
 │   │   ├── transition.scss             // 全局元素过渡类
 │   │   └── variables.scss              // 全局 css 变量
 │   ├── utils

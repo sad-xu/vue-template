@@ -161,6 +161,34 @@ const asyncRoutes = [
   },
 
   {
+    path: '/test',
+    component: Layout,
+    redirect: '/test/a',
+    meta: {
+      title: 'test',
+      icon: 'shuye-1'
+    },
+    children: [
+      {
+        path: 'a',
+        name: 'a',
+        meta: {
+          title: 'aaa'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
+      },
+      {
+        path: 'b',
+        name: 'b',
+        meta: {
+          title: 'bbb'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
+      }
+    ]
+  },
+
+  {
     hidden: true,
     path: '*',
     name: '404',
