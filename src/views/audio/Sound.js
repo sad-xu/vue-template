@@ -3,14 +3,14 @@ class Sound {
     this.context = new (window.AudioContext || window.webkitAudioContext)()
     this.oscillator = null
     this.gainNode = null
-    this.analyser = null
+    // this.analyser = null
     // this.init()
   }
   init() {
     const context = this.context
     const oscillator = context.createOscillator()
     const gainNode = context.createGain()
-    const analyser = context.createAnalyser()
+    // const analyser = context.createAnalyser()
 
     let filter = context.createBiquadFilter()
     filter.type = 'lowpass'
@@ -19,7 +19,7 @@ class Sound {
     filter.Q.value = 0
     filter.gain.value = 0
 
-    analyser.fftSize = 1024 // 2048 // FFT 窗口大小
+    // analyser.fftSize = 1024 // 2048 // FFT 窗口大小
 
     // 自定义音色
     // let diyWave = context.createPeriodicWave(
@@ -38,12 +38,11 @@ class Sound {
 
     oscillator.connect(gainNode)
     gainNode.connect(filter)
-    filter.connect(analyser)
-    analyser.connect(context.destination)
+    filter.connect(context.destination)
 
     this.oscillator = oscillator
     this.gainNode = gainNode
-    this.analyser = analyser
+    // this.analyser = analyser
   }
   play({ wave = 'sine', frequency = 0, volume = 0 } = {}) {
     this.init()
