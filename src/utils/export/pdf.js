@@ -18,10 +18,10 @@ export function exportHTMLToPDF({
     /* eslint-disable-next-line */
     let pdf = new jsPDF('', 'pt', 'a4')
     // a4 595.28 / 841.89
-    let len = canvasList.length - 1
+    const len = canvasList.length - 1
     canvasList.forEach((canvas, i) => {
-      let imgWidth = Number(canvas.style.width.slice(0, -2))
-      let imgHeight = Number(canvas.style.height.slice(0, -2))
+      const imgWidth = Number(canvas.style.width.slice(0, -2))
+      const imgHeight = Number(canvas.style.height.slice(0, -2))
       pdf.addImage(canvas, 'JPEG', 0, 0, 595.28, 595.28 * imgHeight / imgWidth)
       if (len !== i) pdf.addPage()
     })

@@ -112,7 +112,7 @@ export default {
       })
     },
     doExportPDF() {
-      let idList = ['#page-1', '#page-2', '#page-3']
+      const idList = ['#page-1', '#page-2', '#page-3']
       exportPDF({
         name: 'pdf',
         elList: idList.map(id => this.$el.querySelector(id))

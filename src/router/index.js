@@ -184,6 +184,38 @@ const asyncRoutes = [
           title: 'bbb'
         },
         component: () => import('@/views/iconList/IconList.vue')
+      },
+      {
+        path: 'bb',
+        name: 'bb',
+        meta: {
+          title: 'bbbb'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
+      },
+      {
+        path: 'aa',
+        name: 'aa',
+        meta: {
+          title: 'aaa'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
+      },
+      {
+        path: 'bbb',
+        name: 'bbb',
+        meta: {
+          title: 'bbbbb'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
+      },
+      {
+        path: 'aaa',
+        name: 'aaa',
+        meta: {
+          title: 'aaaa'
+        },
+        component: () => import('@/views/iconList/IconList.vue')
       }
     ]
   },
@@ -209,7 +241,7 @@ const router = createRouter()
 
 // 根据权限生成路由
 export function initRouter(userLevel) {
-  let permissionRoutes = asyncRoutes.reduce((acc, route) => {
+  const permissionRoutes = asyncRoutes.reduce((acc, route) => {
     if (route.meta && route.meta.permissions) {
       // 父
       if (hasPermission(route.meta.permissions, userLevel)) {
@@ -218,9 +250,9 @@ export function initRouter(userLevel) {
     } else {
       if (route.children) {
         // 子
-        let children = route.children
+        const children = route.children
         for (let i = 0; i < children.length; i++) {
-          let permissions = children[i].meta && children[i].meta.permissions
+          const permissions = children[i].meta && children[i].meta.permissions
           if (permissions && !hasPermission(permissions, userLevel)) {
             children.splice(i, 1)
             i--

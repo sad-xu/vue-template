@@ -18,13 +18,13 @@ export default {
         scrollElem.style.height = '400px'
       }
 
-      let delay = el.getAttribute('infinite-scroll-delay')
+      const delay = el.getAttribute('infinite-scroll-delay')
       if (delay) scrollElem.setAttribute('infinite-scroll-delay', delay)
 
-      let distance = el.getAttribute('infinite-scroll-distance') || 1
+      const distance = el.getAttribute('infinite-scroll-distance') || 1
       if (distance) scrollElem.setAttribute('infinite-scroll-distance', distance)
 
-      let immediate = el.getAttribute('infinite-scroll-immediate')
+      const immediate = el.getAttribute('infinite-scroll-immediate')
       if (!immediate) scrollElem.setAttribute('infinite-scroll-immediate', false)
 
       // 绑定 infinite-scroll

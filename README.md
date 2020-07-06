@@ -22,7 +22,7 @@
 
 ## 技术栈
 
-基于 `Vue CLI 3`
+基于 `Vue CLI 4`
 
 `Vue` + `Vue Router` + `Vuex` + `Element UI` + `SCSS`
 

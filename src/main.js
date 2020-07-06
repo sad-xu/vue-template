@@ -63,7 +63,7 @@ Vue.prototype.$hideLoading = hideLoading
 // Vue.prototype.$message = Message
 
 // 过滤器 && 全局函数
-for (let key in filter) {
+for (const key in filter) {
   Vue.filter(key, filter[key])
   Vue.prototype[key] = filter[key]
 }
@@ -71,7 +71,7 @@ for (let key in filter) {
 const IS_DEV = process.env.NODE_ENV !== 'production'
 
 // 埋点
-let tracker = new Tracker({
+const tracker = new Tracker({
   pageNumLimit: 5,
   actionNumLimit: 5,
   showHotSpots: IS_DEV,

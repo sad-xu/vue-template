@@ -69,7 +69,7 @@ class Tracker {
     // sendBeacon 页面关闭前
     this.ployfillSendBeacon()
     window.addEventListener('beforeunload', () => {
-      let log = this.log
+      const log = this.log
       log.end = this.getTime()
       log.duration = log.end - log.start - log.duration
       this.logList.push(log)
@@ -77,7 +77,7 @@ class Tracker {
     }, false)
     // 可见性
     window.addEventListener('visibilitychange', () => {
-      let state = document.visibilityState
+      const state = document.visibilityState
       if (state === 'hidden') {
         this.pauseTime = this.getTime()
       } else if (state === 'visible') {
@@ -91,7 +91,7 @@ class Tracker {
       next()
     })
     // Vue directive
-    let directiveType = this.directiveType
+    const directiveType = this.directiveType
     Vue.directive('log', {
       bind: (el, binding) => {
         const handleClick = function() {
@@ -163,7 +163,7 @@ class Tracker {
   enterNewPage(from, to) {
     const now = this.getTime()
     if (this.log) {
-      let log = this.log
+      const log = this.log
       log.end = now
       log.duration = now - log.start - log.duration
       this.logList.push(log)
@@ -180,7 +180,7 @@ class Tracker {
       this.logList.length >= this.pageNumLimit ||
       this.logList.reduce((acc, item) => acc + item.actions.length, 0) >= this.actionNumLimit
     ) {
-      let logList = this.logList
+      const logList = this.logList
       this.logList = []
       this.sendLog(logList)
     }

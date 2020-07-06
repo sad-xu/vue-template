@@ -19,7 +19,7 @@ export function showLoading(option = {
 }
 
 export function hideLoading() {
-  let _t = new Date().getTime() - t
+  const _t = new Date().getTime() - t
   if (_t < LIMIT_TIME) {
     setTimeout(() => {
       loadingService().close()
@@ -69,7 +69,7 @@ export function getLocalImgData(url) {
       imgData = this.src
     } else {
       // 大图片需要 canvas 转换
-      let canvas = document.createElement('canvas')
+      const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
       canvas.height = this.height
       canvas.width = this.width
@@ -77,11 +77,11 @@ export function getLocalImgData(url) {
       imgData = canvas.toDataURL('image/png')
     }
     // base64 --> blob
-    let arr = imgData.split(',')
-    let mime = arr[0].match(/:(.*?);/)[1]
-    let bstr = atob(arr[1])
+    const arr = imgData.split(',')
+    const mime = arr[0].match(/:(.*?);/)[1]
+    const bstr = atob(arr[1])
     let n = bstr.length
-    let u8arr = new Uint8Array(n)
+    const u8arr = new Uint8Array(n)
     while (n--) {
       u8arr[n] = bstr.charCodeAt(n)
     }

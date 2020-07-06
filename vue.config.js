@@ -1,6 +1,6 @@
 const path = require('path')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
+// const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const { chalk } = require('@vue/cli-shared-utils')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -36,8 +36,14 @@ module.exports = {
   css: {
     loaderOptions: {
       // scss全局变量 prependData
+      // scss: {
+      //   sassOptions: {
+      //     data: `@import "~@/styles/variables.scss";`
+      //   }
+      // }
       scss: {
-        data: `@import "~@/styles/variables.scss";`
+        /* eslint-disable-next-line */
+        prependData: `@import "~@/styles/variables.scss";`
       }
     }
   },
@@ -58,19 +64,19 @@ module.exports = {
       ]
     } else {
       plugins = [
-        // 去除console
-        new UglifyjsWebpackPlugin({
-          uglifyOptions: {
-            warnings: false,
-            compress: {
-              drop_debugger: true,
-              drop_console: true,
-              pure_funcs: ['console.log']
-            }
-          },
-          sourceMap: false,
-          parallel: true
-        }),
+        // // 去除console
+        // new UglifyjsWebpackPlugin({
+        //   uglifyOptions: {
+        //     warnings: false,
+        //     compress: {
+        //       drop_debugger: true,
+        //       drop_console: true,
+        //       pure_funcs: ['console.log']
+        //     }
+        //   },
+        //   sourceMap: false,
+        //   parallel: true
+        // }),
         // gZip
         new CompressionWebpackPlugin({
           filename: '[path].gz[query]',
@@ -96,6 +102,12 @@ module.exports = {
       .set('@', resolve('src'))
       .set('views', resolve('srv/views'))
 
+    // 去除 console
+    config.optimization.minimizer('terser').tap(args => {
+      args[0].terserOptions.compress.drop_console = true
+      return args
+    })
+
     // svg-icon
     config.module
       .rule('svg')
@@ -114,10 +126,10 @@ module.exports = {
       .end()
 
     // 开发环境源码映射
-    config
-      .when(
-        process.env.NODE_ENV === 'development',
-        config => config.devtool('cheap-source-map')
-      )
+    // config
+    //   .when(
+    //     process.env.NODE_ENV === 'development',
+    //     config => config.devtool('cheap-source-map')
+    //   )
   }
 }

@@ -37,7 +37,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       // login({ username: username.trim(), password: password }).then(response => {
       //   const { data } = response
-      let token = 'aaa'
+      const token = 'aaa'
       commit('SET_TOKEN', token)
       if (userInfo.level) {
         commit('SET_LEVEL', userInfo.level)

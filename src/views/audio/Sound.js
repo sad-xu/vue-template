@@ -6,13 +6,14 @@ class Sound {
     // this.analyser = null
     // this.init()
   }
+
   init() {
     const context = this.context
     const oscillator = context.createOscillator()
     const gainNode = context.createGain()
     // const analyser = context.createAnalyser()
 
-    let filter = context.createBiquadFilter()
+    const filter = context.createBiquadFilter()
     filter.type = 'lowpass'
     filter.detune.value = 0
     filter.frequency.value = 746
@@ -44,6 +45,7 @@ class Sound {
     this.gainNode = gainNode
     // this.analyser = analyser
   }
+
   play({ wave = 'sine', frequency = 0, volume = 0 } = {}) {
     this.init()
 
@@ -52,16 +54,20 @@ class Sound {
     this.setVolume(volume)
     this.oscillator.start()
   }
+
   setWave(wave) {
     this.oscillator.type = wave
   }
+
   setFrequency(v) {
     this.oscillator.frequency.value = v
   }
+
   setVolume(percentage) {
     // 音量范围 [3.4, -3.4]
     this.gainNode.gain.setValueAtTime(3.4 * percentage, this.context.currentTime)
   }
+
   stop() {
     this.oscillator.stop(this.context.currentTime)
   }

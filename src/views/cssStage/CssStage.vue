@@ -61,18 +61,18 @@ export default {
   },
   methods: {
     init() {
-      let animationList = this.getAnimationList(this.$el)
+      const animationList = this.getAnimationList(this.$el)
       animationList.sort((a, b) => a.delay - b.delay)
       console.log(animationList)
       this.animationList = animationList
     },
     // 获取所有有效animation
     getAnimationList(el) {
-      let stack = [el]
-      let animationList = []
+      const stack = [el]
+      const animationList = []
       while (stack.length) {
-        let node = stack.pop()
-        let arr = [
+        const node = stack.pop()
+        const arr = [
           ...this.getAnimation(node),
           ...this.getAnimation(node, ':before'),
           ...this.getAnimation(node, ':after')
@@ -88,13 +88,13 @@ export default {
     },
     // 获取DOM上的animation样式
     getAnimation(element, pseudoElt = null) {
-      let animation = window.getComputedStyle(element, pseudoElt).getPropertyValue('animation')
+      const animation = window.getComputedStyle(element, pseudoElt).getPropertyValue('animation')
       // 0.6s           ease          0.5s          1             normal     forwards    running     show-type-1-data-v-695a3185
       // duration | timing-function | delay | iteration-count | direction | fill-mode | play-state | name
       return animation === 'none 0s ease 0s 1 normal none running'
         ? []
         : animation.split(', ').map(str => {
-          let arr = str.split(' ')
+          const arr = str.split(' ')
           return {
             duration: Number(arr[0].slice(0, -1)),
             timingFunction: arr[1],
@@ -110,8 +110,8 @@ export default {
     /*  */
     animationStart(e) {
       console.log('start', e)
-      let name = e.animationName.split('-data-v-')[0]
-      let index = this.animationList.findIndex(item => item.name === name)
+      const name = e.animationName.split('-data-v-')[0]
+      const index = this.animationList.findIndex(item => item.name === name)
       if (index === -1) {
         this.animationList.push({
           name,
@@ -123,8 +123,8 @@ export default {
     },
     animationEnd(e) {
       console.log('end', e)
-      let name = e.animationName.split('-data-v-')[0]
-      let index = this.animationList.findIndex(item => item.name === name)
+      const name = e.animationName.split('-data-v-')[0]
+      const index = this.animationList.findIndex(item => item.name === name)
       if (--this.animationList[index].count === 0) {
         this.animationList.splice(index, 1)
       }

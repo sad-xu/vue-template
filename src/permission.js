@@ -23,9 +23,9 @@ router.beforeEach(async(to, from, next) => {
       } else {
         try {
           // 用户信息
-          let permission = await store.dispatch('user/getInfo')
+          const permission = await store.dispatch('user/getInfo')
           // 按权限生成路由
-          let routes = await initRouter(permission)
+          const routes = await initRouter(permission)
           console.log(routes)
           // 设置侧边栏
           await store.dispatch('user/setUserRoutes', routes)
@@ -39,7 +39,7 @@ router.beforeEach(async(to, from, next) => {
         } catch (error) {
           await store.dispatch('user/resetToken')
           Message.error(error || 'Has Error')
-          next(`/login`)
+          next('/login')
           NProgress.done()
         }
       }
@@ -48,7 +48,7 @@ router.beforeEach(async(to, from, next) => {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
-      next(`/login`)
+      next('/login')
       NProgress.done()
     }
   }

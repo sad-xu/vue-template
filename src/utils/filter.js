@@ -12,7 +12,7 @@ const PERMISSION_MAP = {
 }
 
 function check(name, level) {
-  let num = Math.pow(2, PERMISSION_MAP[name])
+  const num = Math.pow(2, PERMISSION_MAP[name])
   return (num & level) === num
 }
 

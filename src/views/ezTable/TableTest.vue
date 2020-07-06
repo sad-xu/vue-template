@@ -149,7 +149,7 @@ export default {
         sortable: Boolean(Math.random() > 0.5)
       })),
       tableBodyData: Array.from({ length: 20 }).map((d, index) => {
-        let obj = {}
+        const obj = {}
         for (let i = 0; i < 40; i++) {
           obj[`prop-${i}`] = `item-${i}-${index}`
         }
@@ -172,9 +172,9 @@ export default {
     },
     // 加载更多事件
     handleLoadMore() {
-      let startIndex = this.tableBodyData.length
+      const startIndex = this.tableBodyData.length
       this.tableBodyData = this.tableBodyData.concat(Array.from({ length: 20 }).map((d, index) => {
-        let obj = {}
+        const obj = {}
         for (let i = 0; i < 40; i++) {
           obj[`prop-${i}`] = `item-${i}-${index + startIndex}`
         }

@@ -46,13 +46,13 @@ export default {
   },
   methods: {
     init() {
-      let spherePathEls = this.$el.querySelectorAll('path')
-      let pathLength = spherePathEls.length
-      let aimations = []
+      const spherePathEls = this.$el.querySelectorAll('path')
+      const pathLength = spherePathEls.length
+      const aimations = []
 
       // this.fitElementToParent(sphereEl)
 
-      let introAnimation = anime.timeline({
+      const introAnimation = anime.timeline({
         autoplay: false
       }).add({
         targets: spherePathEls,
@@ -67,7 +67,7 @@ export default {
         easing: 'linear'
       }, 0)
 
-      let breathAnimation = anime({
+      const breathAnimation = anime({
         begin: function() {
           for (let i = 0; i < pathLength; i++) {
             aimations.push(anime({
@@ -82,7 +82,7 @@ export default {
         },
         update: function(ins) {
           aimations.forEach(function(animation, i) {
-            let percent = (1 - Math.sin((i * 0.35) + (0.0022 * ins.currentTime))) / 2
+            const percent = (1 - Math.sin((i * 0.35) + (0.0022 * ins.currentTime))) / 2
             animation.seek(animation.duration * percent)
           })
         },
@@ -90,7 +90,7 @@ export default {
         autoplay: false
       })
 
-      let shadowAnimation = anime({
+      const shadowAnimation = anime({
         targets: '#sphereGradient',
         x1: '25%',
         x2: '25%',

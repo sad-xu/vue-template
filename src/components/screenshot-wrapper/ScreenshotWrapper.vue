@@ -31,7 +31,7 @@ export default {
         // 通知父组件 生成slot里的图表
         this.$emit('generateStart')
         // 截图 推入队列
-        let p = exportImg2({
+        const p = exportImg2({
           name: 'iii',
           el: this.$el
         })

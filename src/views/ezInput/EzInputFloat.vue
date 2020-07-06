@@ -56,7 +56,7 @@ export default {
       }
     },
     handleInput(e) {
-      let val = e.target.value
+      const val = e.target.value
       let finalInput = val
       if (isNaN(Number(val)) && val !== '-') {
         // 若为非法值，回退为上一个有效值

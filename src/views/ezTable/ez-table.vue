@@ -163,8 +163,8 @@ export default {
   },
   computed: {
     tableData: function() {
-      let fixedHeader = []
-      let normalHeader = []
+      const fixedHeader = []
+      const normalHeader = []
       let fixedWidth = 0
       this.tableHeaderData.forEach(item => {
         if (item.fixed) {
@@ -181,14 +181,14 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let trList = this.$el.querySelector('.ez-content-table').querySelectorAll('tr')
-      let sideRowList = this.$el.querySelectorAll('.ez-side-row')
+      const trList = this.$el.querySelector('.ez-content-table').querySelectorAll('tr')
+      const sideRowList = this.$el.querySelectorAll('.ez-side-row')
       // 同步固定列单元格高度
       sideRowList.forEach((row, index) => {
         row.style.height = trList[index].clientHeight + 'px'
       })
       // 同步固定列表头高度
-      let headerHeight = this.$el.querySelector('.ez-content-header').clientHeight
+      const headerHeight = this.$el.querySelector('.ez-content-header').clientHeight
       this.$el.querySelector('.ez-side .ez-side-header').style.height = headerHeight + 'px'
       this.$el.querySelector('.ez-corner').style.height = headerHeight + 'px'
     })
@@ -214,7 +214,7 @@ export default {
     },
     // 滚动事件
     handleScroll: throttle(function(e) {
-      let { scrollTop, scrollHeight, clientHeight } = e.target
+      const { scrollTop, scrollHeight, clientHeight } = e.target
       if (this.lastScrollTop === scrollTop) return
       this.lastScrollTop = scrollTop
       if (scrollHeight - scrollTop - clientHeight <= this.infiniteScrollDistance) {

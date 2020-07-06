@@ -104,7 +104,7 @@ export default {
           that.sampleRate = audioContext.sampleRate
         }
 
-        let files = this.files
+        const files = this.files
         audio.src = URL.createObjectURL(files[0])
         audio.load()
         audio.play()
@@ -116,13 +116,13 @@ export default {
         wave: 'sawtooth',
         volume: 5 / 100
       })
-      let dataArray = new Uint8Array(this.frequencyBinCount)
-      let draw = () => {
+      const dataArray = new Uint8Array(this.frequencyBinCount)
+      const draw = () => {
         const ctx = this.ctx
         const WIDTH = freqDomainDom.width
         const HEIGHT = freqDomainDom.height
-        let bufferLength = dataArray.length
-        let barWidth = WIDTH / bufferLength * 2
+        const bufferLength = dataArray.length
+        const barWidth = WIDTH / bufferLength * 2
         audioAnalyser.getByteFrequencyData(dataArray)
         // do, re, mi, fa, so, la, ti, do  261.6, 293.7, 329.6, 349.2, 392.0, 440.0, 493.9, 523.2
         ctx.fillStyle = '#000'
@@ -134,7 +134,7 @@ export default {
         // let arr = []
 
         for (let i = 0; i < bufferLength; i++) {
-          let barHeight = dataArray[i] / 255 * HEIGHT
+          const barHeight = dataArray[i] / 255 * HEIGHT
           // ctx.fillStyle = `rgb(${barHeight + (25 * (i / bufferLength))}, ${250 * (i / bufferLength)}, 50)`
           ctx.fillStyle = '#fff'
           ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
@@ -172,7 +172,7 @@ export default {
         // })()
         f = f ? f % 11 + 11 : 0
         // f * 48000 / 1024c / 2 --> f * 23.4375
-        let freq = f * this.sampleRate / bufferLength / 2
+        const freq = f * this.sampleRate / bufferLength / 2
         // if (freq < 262) freq = 262
         // if (freq > 524) freq = 524
         console.log(f, freq)
@@ -189,7 +189,7 @@ export default {
     },
     drawPressMap(freq) {
       // https://codepen.io/jackrugile/pen/Gving
-      let ctx = this.pressMapContext
+      const ctx = this.pressMapContext
       const WIDTH = pressMapDom.width
       const HEIGHT = pressMapDom.height
       ctx.fillStyle = '#5f5757'

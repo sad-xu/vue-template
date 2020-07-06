@@ -63,10 +63,10 @@ export default {
       }).then(cb)
     },
     mergeCommon(list) {
-      let obj = {}
-      let arr = []
+      const obj = {}
+      const arr = []
       list.forEach(item => {
-        let name = item.name
+        const name = item.name
         if (obj[name] >= 0) {
           arr[obj[name]].count++
         } else {

@@ -19,8 +19,8 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      let path = this.$el.querySelector('path')
-      let len = path.getTotalLength()
+      const path = this.$el.querySelector('path')
+      const len = path.getTotalLength()
       path.setAttribute('stroke-dasharray', len)
       path.setAttribute('stroke-dashoffset', len)
       // anime({

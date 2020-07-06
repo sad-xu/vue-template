@@ -44,8 +44,8 @@ export default {
   methods: {
     justNative() {
       const pathList = this.$el.querySelectorAll('path')
-      let durationList = []
-      let delayList = []
+      const durationList = []
+      const delayList = []
       let t = 0
       let lastT = 0
       for (let i = 0; i < pathList.length; i++) {
