@@ -5,9 +5,16 @@ import { Loading } from 'element-ui'
 /**
  * 全局Loading
  */
-const loadingService = Loading.service
+const loadingService = null
 const LIMIT_TIME = 1000
 let t = 0
+
+function closeLoading() {
+  if (loadingService) {
+    loadingService.close()
+    loadingService = null
+  }
+}
 
 export function showLoading(option = {
   text: '加载中...',
@@ -15,16 +22,19 @@ export function showLoading(option = {
   lock: true
 }) {
   t = new Date().getTime()
-  loadingService(option)
+  loadingService = Loading.service(option)
 }
 
 export function hideLoading() {
+  if (!loadingService) return
   const _t = new Date().getTime() - t
   if (_t < LIMIT_TIME) {
     setTimeout(() => {
-      loadingService().close()
+      closeLoading()
     }, LIMIT_TIME)
-  } else loadingService().close()
+  } else {
+    closeLoading()
+  }
 }
 
 /**
