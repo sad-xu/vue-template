@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div class="sidebar-logo" :class="{'collapse':collapse}">
     <router-link key="collapse" class="sidebar-logo-link" to="/">
       <h1 class="sidebar-title">
         {{ title }}
@@ -36,12 +36,13 @@ export default {
   opacity: 0;
 }
 
-.sidebar-logo-container {
+.sidebar-logo {
   position: relative;
   width: 100%;
   height: 50px;
   line-height: 50px;
   text-align: center;
+  z-index: 9;
   overflow: hidden;
   .sidebar-logo-link {
     height: 100%;

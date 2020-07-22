@@ -42,6 +42,7 @@ export default {
   height: calc(100vh - 50px);
   margin-top: 50px;
   padding: 20px;
+  background-color: #f5f7fa;
   overflow: auto;
 }
 

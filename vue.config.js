@@ -1,6 +1,5 @@
 const path = require('path')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-// const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const { chalk } = require('@vue/cli-shared-utils')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -35,15 +34,9 @@ module.exports = {
   },
   css: {
     loaderOptions: {
-      // scss全局变量 prependData
-      // scss: {
-      //   sassOptions: {
-      //     data: `@import "~@/styles/variables.scss";`
-      //   }
-      // }
+      // scss全局变量
       scss: {
-        /* eslint-disable-next-line */
-        prependData: `@import "~@/styles/variables.scss";`
+        prependData: '@import "~@/styles/variables.scss";'
       }
     }
   },
@@ -64,19 +57,6 @@ module.exports = {
       ]
     } else {
       plugins = [
-        // // 去除console
-        // new UglifyjsWebpackPlugin({
-        //   uglifyOptions: {
-        //     warnings: false,
-        //     compress: {
-        //       drop_debugger: true,
-        //       drop_console: true,
-        //       pure_funcs: ['console.log']
-        //     }
-        //   },
-        //   sourceMap: false,
-        //   parallel: true
-        // }),
         // gZip
         new CompressionWebpackPlugin({
           filename: '[path].gz[query]',
@@ -124,12 +104,5 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
-
-    // 开发环境源码映射
-    // config
-    //   .when(
-    //     process.env.NODE_ENV === 'development',
-    //     config => config.devtool('cheap-source-map')
-    //   )
   }
 }

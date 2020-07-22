@@ -4,8 +4,7 @@
   "description": "前端通用模板",
   "scripts": {
     "dev": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "jest --clearCache && vue-cli-service test:unit"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "axios": "0.19.2",

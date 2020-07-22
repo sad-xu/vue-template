@@ -27,8 +27,8 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    if (res.error) {
-      if (res.error === 99999) {
+    if (res.code) {
+      if (res.code === 99999) {
         MessageBox.alert('已登出', '提示', {
           confirmButtonText: '重新登陆'
         }).then(() => {
@@ -37,7 +37,7 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject(new Error(res.msg || 'Res Error'))
+      return Promise.reject(res.code)
     } else return res.data
   },
   error => {
