@@ -5,7 +5,7 @@ import { Loading } from 'element-ui'
 /**
  * 全局Loading
  */
-const loadingService = null
+let loadingService = null
 const LIMIT_TIME = 1000
 let t = 0
 
